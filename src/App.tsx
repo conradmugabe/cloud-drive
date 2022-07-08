@@ -1,7 +1,8 @@
 import React from 'react';
+import FileExplorer from './pages/FileExplorer';
 
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return <FileExplorer />;
 }
 
 export default App;
