@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { File } from '../../interfaces/File';
 import { recentFiles } from '../../test_data';
 import FolderTree from './FolderTree';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
-  const { folderId } = useParams();
+  // const { folderId } = useParams();
 
   // fetch files from folder (folderId)
 

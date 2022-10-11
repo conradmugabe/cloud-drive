@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, HStack, VStack } from '@chakra-ui/react';
 import FileExplorer from './components/compound/FileExplorer';
 import SideNav from './components/compound/SideNav';
 import NavBar from './components/compound/NavBar';

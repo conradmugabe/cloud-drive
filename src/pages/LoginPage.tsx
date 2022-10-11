@@ -1,7 +1,6 @@
 import React from 'react';
 import { SimpleGrid, Box, Center } from '@chakra-ui/react';
 import Login from '../components/compound/forms/Login';
-import NavBar from '../components/compound/NavBar';
 
 const LoginPage = () => {
   return (
