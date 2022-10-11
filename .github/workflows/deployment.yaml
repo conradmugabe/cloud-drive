@@ -9,6 +9,11 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v3
 
+      - name: Check versions of builders
+        run: |
+          node -v
+          yarn -v
+
       - name: Install ⚙️ and Build 👩🏾‍🔧
         run: |
           yarn install --frozen-lockfile
