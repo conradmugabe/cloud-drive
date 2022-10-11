@@ -2,17 +2,13 @@ import React, { ChangeEvent } from 'react';
 import {
   Box,
   Button,
-  Center,
   Flex,
   FormControl,
-  FormHelperText,
   FormLabel,
   Input,
   InputGroup,
   InputRightElement,
-  SimpleGrid,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 
 const Login = () => {
@@ -55,7 +51,10 @@ const Login = () => {
           </InputGroup>
         </FormControl>
         <Flex alignItems="center" justifyContent="space-between">
-          <Text cursor="pointer" _hover={{ textDecoration: 'underline', color: "linkedin" }}>
+          <Text
+            cursor="pointer"
+            _hover={{ textDecoration: 'underline', color: 'linkedin' }}
+          >
             Forgot password?
           </Text>
           <Button colorScheme="linkedin">Sign In</Button>
