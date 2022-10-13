@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { File } from '../../interfaces/File';
-import { recentFiles } from '../../test_data';
+import { recentFiles } from '../../../test_data';
 import FolderTree from './FolderTree';
 
 const FolderFiles = () => {
