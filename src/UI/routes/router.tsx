@@ -23,5 +23,15 @@ export const unauthenticatedRoutes = createBrowserRouter([
 ]);
 
 export const authenticatedRoutes = createBrowserRouter([
-  { path: '/', element: <Dashboard /> },
+  {
+    path: '/',
+    element: (
+      <>
+        <NavBar />
+        <Outlet />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+    children: [{ path: '', element: <Dashboard /> }],
+  },
 ]);

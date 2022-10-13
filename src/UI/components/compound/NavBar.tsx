@@ -7,15 +7,17 @@ import { useUser } from '../../context/user-context';
 const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 
 const NavBar = () => {
-  const user = useUser();
+  const { user, setUser } = useUser();
+
+  console.log('NavBar: user', user);
 
   return (
     <HStack justifyContent="space-between" px={5} py={2} bgColor="gray.50">
       <Link to="/">
         <Logo />
       </Link>
-      {user?.user ? (
-        <Button colorScheme="linkedin" onClick={() => user.setUser(null)}>
+      {user ? (
+        <Button colorScheme="linkedin" onClick={() => setUser(null)}>
           Logout
         </Button>
       ) : (

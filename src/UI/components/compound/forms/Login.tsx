@@ -11,9 +11,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useUser } from '../../../context/user-context';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const user = useUser();
+  const { setUser } = useUser();
+  const navigate = useNavigate();
   const [values, setValues] = React.useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = React.useState(false);
   const { email, password } = values;
@@ -28,18 +30,17 @@ const Login = () => {
   };
 
   const handleLoginUser = (e: React.FormEvent) => {
-    console.log('login in');
     e.preventDefault();
+    console.log('login in');
     const userData = {
       id: '1',
       name: 'John Doe',
       email: 'johndoe@mail.com',
       profilePicture: 'https://randomuser.me/api/portraits/',
     };
-    user?.setUser({ ...userData, email, name: email.split('@')[0] });
+    setUser({ ...userData, email, name: email.split('@')[0] });
+    navigate('/');
   };
-
-  console.log('user', user?.user);
 
   return (
     <Box as="form" onSubmit={handleLoginUser}>
