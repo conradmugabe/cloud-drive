@@ -43,7 +43,11 @@ const FolderTree = ({
   );
 
   const renderFiles = filteredFiles.map((file) => (
-    <File key={file.id} file={file} onDoubleClick={onDoubleClick} />
+    <File
+      key={file.id}
+      file={file}
+      onDoubleClick={file.isFolder ? onDoubleClick : () => {}}
+    />
   ));
 
   return (
@@ -57,7 +61,7 @@ const FolderTree = ({
             <Input
               id="file-search"
               placeholder="Search"
-              colorScheme='linkedin'
+              colorScheme="linkedin"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               inputLeftElement={SearchIcon}

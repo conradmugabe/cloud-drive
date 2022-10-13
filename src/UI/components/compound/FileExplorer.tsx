@@ -2,10 +2,10 @@ import React from 'react';
 import { Heading, IconButton, useDisclosure, VStack } from '@chakra-ui/react';
 import StorageStats from './StorageStats';
 import RecentFiles from './RecentFiles';
-import FolderFiles from './FolderFiles';
 import { TbPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
 import CreateFolderOrUploadFile from './CreateFolderOrUploadFile';
+import { Outlet } from 'react-router-dom';
 
 const FileExplorer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,7 +25,7 @@ const FileExplorer = () => {
         </Heading>
         <StorageStats />
         <RecentFiles />
-        <FolderFiles />
+        <Outlet />
         <IconButton
           colorScheme="facebook"
           aria-label="Create Folder"

@@ -23,8 +23,6 @@ const useUser = () => {
 const UserProvider = (props: Props) => {
   const [user, setUser] = React.useState<User | null>(null);
 
-  console.log('rendering UserProvider');
-
   return <UserContext.Provider value={{ user, setUser }} {...props} />;
 };
 
