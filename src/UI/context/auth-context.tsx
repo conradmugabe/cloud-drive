@@ -14,6 +14,14 @@ type Props = {
 
 const AuthContext = React.createContext<AuthContextProps | null>(null);
 
+const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (!context) {
+    throw Error('useAuth must be used inside AuthContextProvider');
+  }
+  return context;
+};
+
 const AuthProvider = (props: Props) => {
   const [user, setUser] = React.useState<User | null>(null);
 
@@ -41,7 +49,5 @@ const AuthProvider = (props: Props) => {
     />
   );
 };
-
-const useAuth = () => React.useContext(AuthContext);
 
 export { AuthProvider, useAuth };

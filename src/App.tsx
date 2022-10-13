@@ -6,7 +6,6 @@ const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 
 const App = () => {
   const user = useUser();
-  console.log('rendering App');
 
   return (
     <ChakraProvider>
