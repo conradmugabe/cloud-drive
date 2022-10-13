@@ -22,6 +22,7 @@ const NavBar = () => {
         <HStack spacing={8}>
           {menuItems.map((item) => (
             <Text
+              key={item}
               _hover={{ borderBottom: '3px solid green', cursor: 'pointer' }}
             >
               {item}

@@ -108,6 +108,7 @@ const Landing = () => {
             <SimpleGrid columns={3} gap={10}>
               {featuresList.map((item) => (
                 <VStack
+                  key={item.title}
                   borderRadius="lg"
                   border="1px solid"
                   borderColor="gray.200"

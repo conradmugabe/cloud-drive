@@ -6,23 +6,22 @@ type UserContextProps = {
   setUser: (user: User | null) => void;
 };
 
-const userData: User = {
-  id: '1',
-  name: 'John Doe',
-  email: 'johndoe@mail.com',
-  profilePicture: 'https://randomuser.me/api/portraits/',
-};
-
 type Props = {
   children: React.ReactNode;
 };
 
 const UserContext = React.createContext<UserContextProps | null>(null);
 
-const useUser = () => React.useContext(UserContext);
+const useUser = () => {
+  const context = React.useContext(UserContext);
+  if (!context) {
+    throw Error('useUser must be used inside UserContextProvider');
+  }
+  return context;
+};
 
 const UserProvider = (props: Props) => {
-  const [user, setUser] = React.useState<User | null>(userData);
+  const [user, setUser] = React.useState<User | null>(null);
 
   console.log('rendering UserProvider');
 

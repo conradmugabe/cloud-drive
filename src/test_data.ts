@@ -1,4 +1,4 @@
-import { File } from './interfaces/File';
+import { File } from './UI/interfaces/File';
 
 export const recentFiles: File[] = [
   {

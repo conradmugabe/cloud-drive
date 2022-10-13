@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import {
   Box,
   Button,
@@ -10,13 +10,15 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
+import { useUser } from '../../../context/user-context';
 
 const Login = () => {
+  const user = useUser();
   const [values, setValues] = React.useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = React.useState(false);
   const { email, password } = values;
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
@@ -25,7 +27,19 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLoginUser = () => {};
+  const handleLoginUser = (e: React.FormEvent) => {
+    console.log('login in');
+    e.preventDefault();
+    const userData = {
+      id: '1',
+      name: 'John Doe',
+      email: 'johndoe@mail.com',
+      profilePicture: 'https://randomuser.me/api/portraits/',
+    };
+    user?.setUser({ ...userData, email, name: email.split('@')[0] });
+  };
+
+  console.log('user', user?.user);
 
   return (
     <Box as="form" onSubmit={handleLoginUser}>
@@ -57,7 +71,9 @@ const Login = () => {
           >
             Forgot password?
           </Text>
-          <Button colorScheme="linkedin">Sign In</Button>
+          <Button colorScheme="linkedin" type="submit">
+            Sign In
+          </Button>
         </Flex>
       </Flex>
     </Box>

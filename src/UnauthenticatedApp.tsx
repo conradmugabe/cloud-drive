@@ -1,28 +1,9 @@
 import React from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import Footer from './components/compound/Footer';
-import NavBar from './components/compound/NavBar';
-import Landing from './pages/Landing';
-import LoginPage from './pages/LoginPage';
+import { RouterProvider } from 'react-router-dom';
+import { unauthenticatedRoutes } from './UI/routes/router';
 
 const UnauthenticatedApp = () => {
-  return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <NavBar />
-            <Outlet />
-            <Footer />
-          </>
-        }
-      >
-        <Route index element={<Landing />} />
-        <Route path="login" element={<LoginPage />} />
-      </Route>
-    </Routes>
-  );
+  return <RouterProvider router={unauthenticatedRoutes}></RouterProvider>;
 };
 
 export default UnauthenticatedApp;
