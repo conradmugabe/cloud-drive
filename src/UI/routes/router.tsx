@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import FolderFiles from '../components/compound/FolderFiles';
 import NavBar from '../components/compound/NavBar';
 import Dashboard from '../pages/Dashboard';
 import ErrorPage from '../pages/ErrorPage';
@@ -32,6 +33,15 @@ export const authenticatedRoutes = createBrowserRouter([
       </>
     ),
     errorElement: <ErrorPage />,
-    children: [{ path: '', element: <Dashboard /> }],
+    children: [
+      {
+        path: '',
+        element: <Dashboard />,
+        children: [
+          { path: '', element: <FolderFiles /> },
+          { path: 'folder/:folderId', element: <FolderFiles /> },
+        ],
+      },
+    ],
   },
 ]);
