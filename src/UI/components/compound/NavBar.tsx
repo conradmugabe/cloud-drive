@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, HStack, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../common/Logo';
 import { useUser } from '../../context/user-context';
 
@@ -8,8 +8,12 @@ const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 
 const NavBar = () => {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
 
-  console.log('NavBar: user', user);
+  const handleLogout = () => {
+    setUser(null);
+    navigate('/');
+  };
 
   return (
     <HStack justifyContent="space-between" px={5} py={2} bgColor="gray.50">
@@ -17,7 +21,7 @@ const NavBar = () => {
         <Logo />
       </Link>
       {user ? (
-        <Button colorScheme="linkedin" onClick={() => setUser(null)}>
+        <Button colorScheme="linkedin" onClick={handleLogout}>
           Logout
         </Button>
       ) : (
