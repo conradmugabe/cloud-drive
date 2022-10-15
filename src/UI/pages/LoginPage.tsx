@@ -1,24 +1,22 @@
 import React from 'react';
-import { SimpleGrid, Box, Center } from '@chakra-ui/react';
+import { SimpleGrid, Flex, Heading, Text } from '@chakra-ui/react';
 import Login from '../components/compound/forms/Login';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (
-    <>
-      <Center>
-        <SimpleGrid
-          columns={2}
-          gap={5}
-          maxW="7xl"
-          w="100%"
-          paddingInline="48"
-          h="80vh"
-        >
-          <Box w="100%" h="100%" bgColor="blue.100"></Box>
-          <Login />
-        </SimpleGrid>
-      </Center>
-    </>
+    <SimpleGrid>
+      <Flex justifyContent="space-between">
+        <Heading size="md">Sign in</Heading>
+        <Text>
+          or{' '}
+          <Text as="span">
+            <Link to="/auth/register">create an account</Link>
+          </Text>
+        </Text>
+      </Flex>
+      <Login />
+    </SimpleGrid>
   );
 };
 

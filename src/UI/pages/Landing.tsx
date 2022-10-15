@@ -92,7 +92,7 @@ const Landing = () => {
                 mobile device, table, or computer
               </Text>
               <Box width="100%" py="10">
-                <Link to="login">
+                <Link to="/auth/login">
                   <Button alignSelf="flex-start" colorScheme="linkedin">
                     Try Cloud Drive
                   </Button>
