@@ -44,13 +44,17 @@ const Login = () => {
 
   return (
     <Box as="form" onSubmit={handleLoginUser}>
-      <Flex flexDir="column" gap={5} pt={20}>
+      <Flex flexDir="column" gap={5} pt={10}>
         <FormControl>
-          <FormLabel fontWeight="bold">Email address</FormLabel>
+          <FormLabel fontWeight="medium" color="blackAlpha.700" fontSize="sm">
+            Email address
+          </FormLabel>
           <Input name="email" type="email" value={email} onChange={onChange} />
         </FormControl>
         <FormControl>
-          <FormLabel fontWeight="bold">Password</FormLabel>
+          <FormLabel fontWeight="medium" color="blackAlpha.700" fontSize="sm">
+            Password
+          </FormLabel>
           <InputGroup>
             <Input
               name="password"

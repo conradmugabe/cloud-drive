@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -23,7 +24,7 @@ const ForgotPassword = () => {
 
   return (
     <Box as="form" onSubmit={handleSubmit}>
-      <Flex flexDirection="column" gap={4} pt={20}>
+      <Flex flexDirection="column" gap={4} pt={10}>
         <Heading size="md" color="blackAlpha.900" fontWeight="medium">
           Forgot your password?
         </Heading>
@@ -37,6 +38,9 @@ const ForgotPassword = () => {
           </FormLabel>
           <Input name="email" type="email" value={email} onChange={onChange} />
         </FormControl>
+        <Button type="submit" colorScheme="linkedin" alignSelf="flex-end">
+          Submit
+        </Button>
       </Flex>
     </Box>
   );
