@@ -5,10 +5,11 @@ import RecentFiles from './RecentFiles';
 import { TbPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
 import CreateFolderOrUploadFile from './CreateFolderOrUploadFile';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 
 const FileExplorer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { folderId } = useParams();
 
   return (
     <>
@@ -23,8 +24,12 @@ const FileExplorer = () => {
         <Heading as="h3" size="md">
           My Drive
         </Heading>
-        <StorageStats />
-        <RecentFiles />
+        {!folderId && (
+          <>
+            <StorageStats />
+            <RecentFiles />
+          </>
+        )}
         <Outlet />
         <IconButton
           colorScheme="facebook"

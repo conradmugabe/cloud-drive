@@ -1,13 +1,13 @@
 import React from 'react';
 import { Flex, Heading, Text } from '@chakra-ui/react';
-import Login from '../components/compound/forms/Login';
 import { Link } from 'react-router-dom';
+import Register from '../components/compound/forms/Register';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <Flex flexDirection="column">
       <Flex justifyContent="space-between">
-        <Heading size="md">Sign in</Heading>
+        <Heading size="md">Sign up</Heading>
         <Text>
           or{' '}
           <Text
@@ -15,13 +15,13 @@ const LoginPage = () => {
             color="linkedin.700"
             _hover={{ textDecoration: 'underline' }}
           >
-            <Link to="/auth/register">create an account</Link>
+            <Link to="/auth/login">login</Link>
           </Text>
         </Text>
       </Flex>
-      <Login />
+      <Register />
     </Flex>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

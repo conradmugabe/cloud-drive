@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useUser } from '../../../context/user-context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { setUser } = useUser();
@@ -44,13 +44,17 @@ const Login = () => {
 
   return (
     <Box as="form" onSubmit={handleLoginUser}>
-      <Flex flexDir="column" gap={5} pt={20}>
+      <Flex flexDir="column" gap={5} pt={10}>
         <FormControl>
-          <FormLabel fontWeight="bold">Email address</FormLabel>
+          <FormLabel fontWeight="medium" color="blackAlpha.700" fontSize="sm">
+            Email address
+          </FormLabel>
           <Input name="email" type="email" value={email} onChange={onChange} />
         </FormControl>
         <FormControl>
-          <FormLabel fontWeight="bold">Password</FormLabel>
+          <FormLabel fontWeight="medium" color="blackAlpha.700" fontSize="sm">
+            Password
+          </FormLabel>
           <InputGroup>
             <Input
               name="password"
@@ -70,7 +74,7 @@ const Login = () => {
             cursor="pointer"
             _hover={{ textDecoration: 'underline', color: 'linkedin' }}
           >
-            Forgot password?
+            <Link to="/auth/forgot_password">Forgot password?</Link>
           </Text>
           <Button colorScheme="linkedin" type="submit">
             Sign In
