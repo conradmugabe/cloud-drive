@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   ButtonGroup,
   Flex,
@@ -18,13 +18,17 @@ interface Props {
   showSearchBar?: boolean;
   files: IFile[];
   onDoubleClick: (file: IFile) => void;
+  onSingleClick: (file: IFile) => void;
+  selectedFSNode: IFile | null;
 }
 
 const FolderTree = ({
   heading,
   files,
   onDoubleClick,
+  onSingleClick,
   showSearchBar = true,
+  selectedFSNode,
 }: Props) => {
   const [search, setSearch] = React.useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,16 +41,18 @@ const FolderTree = ({
     );
   };
 
-  const filteredFiles = useMemo(
+  const filteredFiles = React.useMemo(
     () => filterFiles(files, search),
     [files, search]
   );
 
-  const renderFiles = filteredFiles.map((file) => (
+  const renderFiles = filteredFiles.map((file: IFile) => (
     <File
       key={file.id}
       file={file}
       onDoubleClick={file.isFolder ? onDoubleClick : () => {}}
+      onSingleClick={onSingleClick}
+      selectedFSNode={selectedFSNode}
     />
   ));
 

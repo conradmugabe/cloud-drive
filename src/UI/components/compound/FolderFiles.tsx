@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { File } from '../../interfaces/File';
 import { recentFiles } from '../../../test_data';
 import FolderTree from './FolderTree';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
-  const { folderId } = useParams();
-
-  console.log('folderId', folderId);
+  // const { folderId } = useParams();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
 
   const organizeFoldersToFiles = (files: File[]) => {
     const files_list: File[] = [];
@@ -19,7 +19,7 @@ const FolderFiles = () => {
     return [...folders_list, ...files_list];
   };
 
-  const files = useMemo(
+  const files = React.useMemo(
     () => organizeFoldersToFiles(organizeFoldersToFiles(recentFiles)),
     []
   );
@@ -28,8 +28,18 @@ const FolderFiles = () => {
     navigate(`/folder/${file.id}`);
   };
 
+  const onSingleClick = (file: File) => {
+    setSelectedFSNode(file);
+  };
+
   return (
-    <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
+    <FolderTree
+      files={files}
+      heading="Files"
+      selectedFSNode={selectedFSNode}
+      onDoubleClick={onDoubleClick}
+      onSingleClick={onSingleClick}
+    />
   );
 };
 

@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './UI/context/auth-context';
 import { UserProvider } from './UI/context/user-context';
 import './index.css';
+import { SelectedFSNodeProvider } from './UI/context/selected-fs-node-context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <UserProvider>
-        <App />
+        <SelectedFSNodeProvider>
+          <App />
+        </SelectedFSNodeProvider>
       </UserProvider>
     </AuthProvider>
   </React.StrictMode>

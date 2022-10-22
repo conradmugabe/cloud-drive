@@ -1,11 +1,18 @@
 import React from 'react';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import { File as IFile } from '../../interfaces/File';
 import FolderTree from './FolderTree';
 
 const RecentFiles = () => {
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
+
+  const onSingleClick = (file: IFile) => {
+    setSelectedFSNode(file);
+  };
+
   const recentFiles: IFile[] = [
     {
-      id: '1',
+      id: '10',
       name: 'End of year report 2020',
       isFolder: false,
       size: 150000,
@@ -13,7 +20,7 @@ const RecentFiles = () => {
       fileType: '.pdf',
     },
     {
-      id: '2',
+      id: '20',
       name: 'End of year report 2019',
       isFolder: false,
       size: 150000,
@@ -21,7 +28,7 @@ const RecentFiles = () => {
       fileType: '.pdf',
     },
     {
-      id: '3',
+      id: '30',
       name: 'End of year report 2019',
       isFolder: false,
       size: 150000,
@@ -29,7 +36,7 @@ const RecentFiles = () => {
       fileType: '.txt',
     },
     {
-      id: '4',
+      id: '40',
       name: 'Moments 2020',
       isFolder: false,
       size: 30000000,
@@ -44,6 +51,8 @@ const RecentFiles = () => {
       files={recentFiles}
       heading="Recent Files"
       showSearchBar={false}
+      onSingleClick={onSingleClick}
+      selectedFSNode={selectedFSNode}
     />
   );
 };

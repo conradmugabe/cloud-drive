@@ -6,12 +6,18 @@ import { TbFolder, TbFile } from 'react-icons/tb';
 interface Props {
   file: IFile;
   onDoubleClick: (file: IFile) => void;
+  onSingleClick: (file: IFile) => void;
+  selectedFSNode: IFile | null;
 }
 
-const File = ({ file, onDoubleClick }: Props) => {
+const File = ({
+  file,
+  onDoubleClick,
+  onSingleClick,
+  selectedFSNode,
+}: Props) => {
   return (
     <Flex
-      bgColor="white"
       py="2.5"
       alignItems="center"
       justifyContent="space-between"
@@ -20,6 +26,12 @@ const File = ({ file, onDoubleClick }: Props) => {
       borderRadius="lg"
       _hover={{ boxShadow: 'md' }}
       onDoubleClick={() => onDoubleClick(file)}
+      onClick={() => onSingleClick(file)}
+      backgroundColor={
+        selectedFSNode && selectedFSNode.id === file.id
+          ? 'linkedin.100'
+          : 'white'
+      }
     >
       <HStack>
         {file.isFolder ? (
