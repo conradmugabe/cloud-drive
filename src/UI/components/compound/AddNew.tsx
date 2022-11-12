@@ -1,18 +1,9 @@
 import React from 'react';
-import {
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from '@chakra-ui/react';
-import { TbFilePlus, TbFolderPlus, TbPlus } from 'react-icons/tb';
+import { IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
+import { TbPlus } from 'react-icons/tb';
+import GeneralContextMenu from '../common/GeneralContextMenu';
 
-type Props = {
-  onOpen: () => void;
-};
-
-const AddNew = ({ onOpen }: Props) => {
+const AddNew = () => {
   return (
     <Menu>
       <MenuButton
@@ -30,10 +21,7 @@ const AddNew = ({ onOpen }: Props) => {
         Actions
       </MenuButton>
       <MenuList>
-        <MenuItem icon={<TbFolderPlus />} onClick={onOpen}>
-          New Folder
-        </MenuItem>
-        <MenuItem icon={<TbFilePlus />}>Upload File</MenuItem>
+        <GeneralContextMenu />
       </MenuList>
     </Menu>
   );
