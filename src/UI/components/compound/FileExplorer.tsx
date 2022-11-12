@@ -2,8 +2,8 @@ import React from 'react';
 import { Heading, IconButton, useDisclosure } from '@chakra-ui/react';
 import { TbPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
-import CreateFolderOrUploadFile from './CreateFolderOrUploadFile';
 import { Outlet } from 'react-router-dom';
+import CreateFolder from './forms/CreateFolder';
 
 const FileExplorer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,8 +26,8 @@ const FileExplorer = () => {
         icon={<TbPlus />}
         onClick={onOpen}
       />
-      <Modal isOpen={isOpen} onClose={onClose} size="md">
-        <CreateFolderOrUploadFile onClose={onClose} />
+      <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered={true}>
+        <CreateFolder onClose={onClose} />
       </Modal>
     </>
   );

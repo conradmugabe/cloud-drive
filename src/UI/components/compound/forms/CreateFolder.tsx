@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Flex } from '@chakra-ui/react';
+import { Button, ButtonGroup, Flex, Heading } from '@chakra-ui/react';
 import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ interface Props {
 
 const CreateFolder = ({ onClose }: Props) => {
   const FILE_NAME = 'fileName';
-  const HELPER_TEXT = 'Cannot have the same file name in same directory';
+
   const [fileName, setFileName] = React.useState('');
   const { folderId } = useParams();
 
@@ -23,17 +23,16 @@ const CreateFolder = ({ onClose }: Props) => {
   return (
     <Flex
       bgColor="whiteAlpha.900"
-      py="5"
-      px="2"
+      p="10"
       borderRadius="full"
       flexDirection="column"
       gap="8"
     >
+      <Heading size="md">New Folder</Heading>
       <Input
         id={FILE_NAME}
         name={FILE_NAME}
         value={fileName}
-        helperText={HELPER_TEXT}
         placeholder="File Name"
         borderRadius="lg"
         onChange={(e) => setFileName(e.target.value)}
