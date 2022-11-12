@@ -50,7 +50,17 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
 
   return (
     <>
-      <Flex justifyContent="space-between" alignItems="center" width="100%">
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+        position="sticky"
+        top={0}
+        bgColor="white"
+        paddingX={2}
+        paddingY={4}
+        borderRadius={8}
+      >
         <Heading as="h4" size="sm">
           {heading}
         </Heading>

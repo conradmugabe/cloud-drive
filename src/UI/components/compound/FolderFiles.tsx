@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { FSNode } from '../../interfaces/File';
 import { recentFiles } from '../../../test_data';
 import FolderTree from './FolderTree';
-import { Box } from '@chakra-ui/react';
+import { Box, Menu } from '@chakra-ui/react';
+import ContextMenu from './ContectMenu';
+import { useContextMenu } from '../../hooks/useContextMenu';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
+  const { x, y, showContextMenu, setCoordinates, setShowContextMenu } =
+    useContextMenu();
 
   const organizeFoldersToFiles = (files: FSNode[]) => {
     const files_list: FSNode[] = [];
@@ -31,11 +35,23 @@ const FolderFiles = () => {
     <Box
       width="full"
       height="100%"
+      position="relative"
+      overflowX="hidden"
+      paddingBottom={20}
       onContextMenu={(e) => {
-        alert('Clicked General');
+        e.preventDefault();
+        setShowContextMenu(true);
+        setCoordinates({ x: e.pageX, y: e.pageY });
       }}
     >
-      <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
+      <Menu isOpen={showContextMenu}>
+        <FolderTree
+          files={files}
+          heading="Files"
+          onDoubleClick={onDoubleClick}
+        />
+        <ContextMenu menuType="general" x={x} y={y} />
+      </Menu>
     </Box>
   );
 };
