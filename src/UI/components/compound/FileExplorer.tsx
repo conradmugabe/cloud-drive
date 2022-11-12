@@ -4,6 +4,7 @@ import { TbPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
 import { Outlet } from 'react-router-dom';
 import CreateFolder from './forms/CreateFolder';
+import AddNew from './AddNew';
 
 const FileExplorer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -14,18 +15,7 @@ const FileExplorer = () => {
         My Drive
       </Heading>
       <Outlet />
-      <IconButton
-        colorScheme="facebook"
-        aria-label="Create Folder"
-        position="fixed"
-        bottom="10"
-        right="16"
-        borderRadius="full"
-        boxShadow="xl"
-        size="lg"
-        icon={<TbPlus />}
-        onClick={onOpen}
-      />
+      <AddNew onOpen={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered={true}>
         <CreateFolder onClose={onClose} />
       </Modal>

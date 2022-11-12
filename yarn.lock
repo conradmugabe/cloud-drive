@@ -2420,14 +2420,6 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@szhsin/react-menu@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@szhsin/react-menu/-/react-menu-3.2.1.tgz#92bbf965175d08f1d430aa4924a8ccfdbbd69501"
-  integrity sha512-HEStuXNYHxLcGByiWaxFcE+ZaZ5BPQd/NtwBcxmUvHdvAaCZngmZ2ZddWuDAYZval94Kpahi1ZH0/WSv3oFnFg==
-  dependencies:
-    prop-types "^15.7.2"
-    react-transition-state "^1.1.5"
-
 "@testing-library/dom@^8.5.0":
   version "8.14.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.14.0.tgz#c9830a21006d87b9ef6e1aae306cf49b0283e28e"
@@ -8009,7 +8001,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8297,11 +8289,6 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
-
-react-transition-state@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-1.1.5.tgz#22accee21d0011b1d0245be24b6262ae67f494c3"
-  integrity sha512-ITY2mZqc2dWG2eitJkYNdcSFW8aKeOlkL2A/vowRrLL8GH3J6Re/SpD/BLvQzrVOTqjsP0b5S9N10vgNNzwMUQ==
 
 react@^18.2.0:
   version "18.2.0"
