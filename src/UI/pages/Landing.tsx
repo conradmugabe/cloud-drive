@@ -15,6 +15,7 @@ import { IoMdSync } from 'react-icons/io';
 import { TbCloudLock } from 'react-icons/tb';
 import { HiOutlineShare } from 'react-icons/hi';
 import PricingCard from '../components/compound/PricingCard';
+import Feature from './Landing.Components/Feature';
 
 const featuresList = [
   {
@@ -83,17 +84,28 @@ const Landing = () => {
       <Center>
         <VStack maxW="7xl" spacing={0}>
           <SimpleGrid columns={2} gap={10}>
-            <VStack pt={20}>
-              <Heading size="3xl" fontWeight="thin" lineHeight="shorter">
+            <VStack pt={20} spacing="5">
+              <Heading size="4xl" fontWeight="normal" lineHeight="shorter">
                 Easy and secure access to your content
               </Heading>
-              <Text textAlign="justify" fontSize={'xl'} color="blackAlpha.600">
+              <Text
+                textAlign="justify"
+                fontSize="xl"
+                color="blackAlpha.700"
+                lineHeight="7"
+                width="70%"
+                alignSelf="start"
+              >
                 Store, share, and collaborate on files and folder from your
                 mobile device, table, or computer
               </Text>
-              <Box width="100%" py="10">
+              <Box width="100%" py="5">
                 <Link to="/auth/login">
-                  <Button alignSelf="flex-start" colorScheme="linkedin">
+                  <Button
+                    alignSelf="flex-start"
+                    colorScheme="linkedin"
+                    size="lg"
+                  >
                     Try Cloud Drive
                   </Button>
                 </Link>
@@ -107,28 +119,7 @@ const Landing = () => {
             </Heading>
             <SimpleGrid columns={3} gap={10}>
               {featuresList.map((item) => (
-                <VStack
-                  key={item.title}
-                  borderRadius="lg"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  p={4}
-                  mt={4}
-                  bgColor="white"
-                  gap="2"
-                >
-                  <Icon as={item.icon} h="10" w="10" color="linkedin.500" />
-                  <Heading fontSize="md" mb={10}>
-                    {item.title}
-                  </Heading>
-                  <Text
-                    fontSize={'md'}
-                    color="blackAlpha.700"
-                    textAlign="center"
-                  >
-                    {item.text}
-                  </Text>
-                </VStack>
+                <Feature key={item.title} item={item} />
               ))}
             </SimpleGrid>
           </VStack>

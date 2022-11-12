@@ -2,20 +2,16 @@ import React from 'react';
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { FSNode } from '../../interfaces/File';
 import { TbFolder, TbFile } from 'react-icons/tb';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 interface Props {
   file: FSNode;
   onDoubleClick: (file: FSNode) => void;
-  setSelectedFSNode: (file: FSNode) => void;
-  selectedFSNode: FSNode | null;
 }
 
-const File = ({
-  file,
-  onDoubleClick,
-  setSelectedFSNode,
-  selectedFSNode,
-}: Props) => {
+const File = ({ file, onDoubleClick }: Props) => {
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
+
   const onClick = () => {
     setSelectedFSNode(file);
   };

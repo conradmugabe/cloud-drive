@@ -16,7 +16,15 @@ const NavBar = () => {
   };
 
   return (
-    <HStack justifyContent="space-between" px={5} py={2} bgColor="gray.50">
+    <HStack
+      justifyContent="space-between"
+      px={5}
+      py={2}
+      bgColor="gray.50"
+      position="sticky"
+      top="0"
+      zIndex="1"
+    >
       <Link to="/">
         <Logo />
       </Link>

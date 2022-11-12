@@ -3,12 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { FSNode } from '../../interfaces/File';
 import { recentFiles } from '../../../test_data';
 import FolderTree from './FolderTree';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { Box } from '@chakra-ui/react';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
-  // const { folderId } = useParams();
-  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
 
   const organizeFoldersToFiles = (files: FSNode[]) => {
     const files_list: FSNode[] = [];
@@ -30,13 +28,15 @@ const FolderFiles = () => {
   };
 
   return (
-    <FolderTree
-      files={files}
-      heading="Files"
-      selectedFSNode={selectedFSNode}
-      onDoubleClick={onDoubleClick}
-      setSelectedFSNode={setSelectedFSNode}
-    />
+    <Box
+      width="full"
+      height="100%"
+      onContextMenu={(e) => {
+        alert('Clicked General');
+      }}
+    >
+      <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
+    </Box>
   );
 };
 

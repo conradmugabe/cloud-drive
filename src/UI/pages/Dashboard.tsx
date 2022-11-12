@@ -6,25 +6,35 @@ import SideNav from '../components/compound/SideNav';
 const Dashboard = () => {
   return (
     <Box
-      height="100vh"
-      width="100%"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      overflow="hidden"
+    // height="100vh"
+    // width="100%"
+    // display="flex"
+    // alignItems="center"
+    // justifyContent="center"
+    // overflow="hidden"
     >
       <HStack
         height="100vh"
         align="start"
-        maxWidth="1400px"
-        width="100%"
         bgColor="whitesmoke"
-        py={4}
+        py={2}
+        onContextMenu={(e) => {
+          e.preventDefault();
+        }}
       >
-        <VStack width="20%" py={4}>
+        <VStack width="18%" py={4}>
           <SideNav />
         </VStack>
-        <FileExplorer />
+        <VStack
+          width="82%"
+          align="start"
+          position="relative"
+          height="full"
+          paddingRight="10"
+          overflowY="auto"
+        >
+          <FileExplorer />
+        </VStack>
       </HStack>
     </Box>
   );
