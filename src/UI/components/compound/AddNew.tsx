@@ -5,7 +5,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { TbFilePlus, TbFolderPlus, TbPlus } from 'react-icons/tb';
 

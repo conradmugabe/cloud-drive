@@ -1,6 +1,5 @@
 import React from 'react';
-import { Heading, IconButton, useDisclosure } from '@chakra-ui/react';
-import { TbPlus } from 'react-icons/tb';
+import { Heading, useDisclosure } from '@chakra-ui/react';
 import Modal from '../common/Modal';
 import { Outlet } from 'react-router-dom';
 import CreateFolder from './forms/CreateFolder';
