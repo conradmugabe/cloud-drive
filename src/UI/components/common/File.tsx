@@ -7,19 +7,19 @@ import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 interface Props {
   file: FSNode;
   onDoubleClick: (file: FSNode) => void;
+  handleClickedChild: () => void;
 }
 
-const File = ({ file, onDoubleClick }: Props) => {
+const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
 
   const onClick = () => {
     setSelectedFSNode(file);
+    handleClickedChild();
   };
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     onClick();
-    e.preventDefault();
-    alert('you have right clicked me');
   };
 
   const handleDoubleClick = () => {
@@ -62,9 +62,11 @@ const File = ({ file, onDoubleClick }: Props) => {
           )}
         </VStack>
       </HStack>
-      <Text fontSize="sm" color="blackAlpha.600">
-        {file.updatedAt}
-      </Text>
+      <Flex gap={2} alignItems="center">
+        <Text fontSize="sm" color="blackAlpha.600">
+          {file.updatedAt}
+        </Text>
+      </Flex>
     </Flex>
   );
 };

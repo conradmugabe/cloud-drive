@@ -8,12 +8,15 @@ type Props = {
   menuType: string;
   x?: number;
   y?: number;
+  showDeleteOption?: boolean;
 };
 
-const ContextMenu = ({ menuType, x, y }: Props) => {
+const ContextMenu = ({ menuType, x, y, showDeleteOption }: Props) => {
   let child: React.ReactNode;
-  if (menuType === 'folder') child = <FolderContextMenu />;
-  else if (menuType) child = <FileContextMenu />;
+  if (menuType === 'folder')
+    child = <FolderContextMenu showDeleteOption={showDeleteOption} />;
+  else if (menuType)
+    child = <FileContextMenu showDeleteOption={showDeleteOption} />;
   else child = <GeneralContextMenu />;
 
   if (x || y) <MenuList boxShadow="lg">{child}</MenuList>;

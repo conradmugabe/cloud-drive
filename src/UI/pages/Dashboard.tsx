@@ -1,27 +1,30 @@
 import React from 'react';
-import { Box, HStack, VStack } from '@chakra-ui/react';
+import { HStack, Menu, VStack } from '@chakra-ui/react';
 import FileExplorer from '../components/compound/FileExplorer';
 import SideNav from '../components/compound/SideNav';
+import { useContextMenu } from '../hooks/useContextMenu';
+import ContextMenu from '../components/compound/ContextMenu';
+import { useSelectedFSNodeFile } from '../context/selected-fs-node-context';
 
 const Dashboard = () => {
+  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { x, y, showContextMenu, setShowContextMenu, setCoordinates } =
+    useContextMenu();
+
   return (
-    <Box
-    // height="100vh"
-    // width="100%"
-    // display="flex"
-    // alignItems="center"
-    // justifyContent="center"
-    // overflow="hidden"
+    <HStack
+      height="100vh"
+      align="start"
+      bgColor="whitesmoke"
+      py={2}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setShowContextMenu(true);
+        setCoordinates({ x: e.pageX, y: e.pageY });
+      }}
     >
-      <HStack
-        height="100vh"
-        align="start"
-        bgColor="whitesmoke"
-        py={2}
-        onContextMenu={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <Menu isOpen={showContextMenu}>
+        <ContextMenu x={x} y={y} menuType={selectedFSNode?.type || ''} />
         <VStack width="18%" py={4}>
           <SideNav />
         </VStack>
@@ -35,8 +38,8 @@ const Dashboard = () => {
         >
           <FileExplorer />
         </VStack>
-      </HStack>
-    </Box>
+      </Menu>
+    </HStack>
   );
 };
 

@@ -8,10 +8,10 @@ const GeneralContextMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <MenuItem icon={<TbFolderPlus />} onClick={onOpen}>
+      <MenuItem icon={<TbFolderPlus size={24} />} onClick={onOpen}>
         New Folder
       </MenuItem>
-      <MenuItem icon={<TbFilePlus />}>Upload File</MenuItem>
+      <MenuItem icon={<TbFilePlus size={24} />}>Upload File</MenuItem>
       <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered={true}>
         <CreateFolder onClose={onClose} />
       </Modal>

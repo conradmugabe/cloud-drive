@@ -1,16 +1,24 @@
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { FSNode } from '../../interfaces/File';
 import { recentFiles } from '../../../test_data';
 import FolderTree from './FolderTree';
-import { Box, Menu } from '@chakra-ui/react';
-import ContextMenu from './ContectMenu';
-import { useContextMenu } from '../../hooks/useContextMenu';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
-  const { x, y, showContextMenu, setCoordinates, setShowContextMenu } =
-    useContextMenu();
+  const { setSelectedFSNode } = useSelectedFSNodeFile();
+  const [clickedChild, setClickedChild] = React.useState(false);
+
+  const handleClickedChild = () => {
+    setClickedChild(true);
+  };
+
+  const onClick = () => {
+    setClickedChild(false);
+    setSelectedFSNode(null);
+  };
 
   const organizeFoldersToFiles = (files: FSNode[]) => {
     const files_list: FSNode[] = [];
@@ -38,20 +46,14 @@ const FolderFiles = () => {
       position="relative"
       overflowX="hidden"
       paddingBottom={20}
-      onContextMenu={(e) => {
-        e.preventDefault();
-        setShowContextMenu(true);
-        setCoordinates({ x: e.pageX, y: e.pageY });
-      }}
+      onClick={onClick}
     >
-      <Menu isOpen={showContextMenu}>
-        <FolderTree
-          files={files}
-          heading="Files"
-          onDoubleClick={onDoubleClick}
-        />
-        <ContextMenu menuType="general" x={x} y={y} />
-      </Menu>
+      <FolderTree
+        files={files}
+        heading="Files"
+        onDoubleClick={onDoubleClick}
+        handleClickedChild={handleClickedChild}
+      />
     </Box>
   );
 };
