@@ -6,27 +6,20 @@ import GeneralContextMenu from '../common/GeneralContextMenu';
 
 type Props = {
   menuType: string;
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
 };
 
 const ContextMenu = ({ menuType, x, y }: Props) => {
-  let child;
-  switch (menuType) {
-    case 'folder':
-      child = <FolderContextMenu />;
-      break;
+  let child: React.ReactNode;
+  if (menuType === 'folder') child = <FolderContextMenu />;
+  else if (menuType) child = <FileContextMenu />;
+  else child = <GeneralContextMenu />;
 
-    case 'general':
-      child = <GeneralContextMenu />;
-      break;
+  if (x || y) <MenuList boxShadow="lg">{child}</MenuList>;
 
-    default:
-      child = <FileContextMenu />;
-      break;
-  }
   return (
-    <MenuList position="absolute" top={y} left={x}>
+    <MenuList position="absolute" top={y} left={x} boxShadow="lg">
       {child}
     </MenuList>
   );
