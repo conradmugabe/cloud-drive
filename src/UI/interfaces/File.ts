@@ -1,8 +1,12 @@
-export interface File {
+export interface FSNode {
   id: string;
+  createdAt: string;
+  updatedAt: string;
   name: string;
-  isFolder: boolean;
+  type: string;
+  path: string;
+  parentFolder: string;
+  createdBy: string;
+  ownedBy: string;
   size: number;
-  lastModified: string;
-  fileType: string;
 }

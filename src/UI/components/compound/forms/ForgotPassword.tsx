@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         </Heading>
         <Text fontSize="sm">
           Enter your email address to reset your password. You may need to check
-          your spam folder or unblock no-reply@dropbox.com.
+          your spam folder.
         </Text>
         <FormControl>
           <FormLabel fontWeight="medium" color="blackAlpha.700" fontSize="sm">

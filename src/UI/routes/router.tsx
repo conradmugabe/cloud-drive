@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import FullScreen from '../components/common/FullScreen';
 import FolderFiles from '../components/compound/FolderFiles';
 import NavBar from '../components/compound/NavBar';
 import AuthRootPage from '../pages/AuthRootPage';
@@ -38,10 +39,10 @@ export const authenticatedRoutes = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
+      <FullScreen>
         <NavBar />
         <Outlet />
-      </>
+      </FullScreen>
     ),
     errorElement: <ErrorPage />,
     children: [
