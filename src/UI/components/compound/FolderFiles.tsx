@@ -38,7 +38,6 @@ const FolderFiles = () => {
     <Box
       width="full"
       height="100%"
-      position="relative"
       overflowX="hidden"
       paddingBottom={20}
       onClick={onClick}

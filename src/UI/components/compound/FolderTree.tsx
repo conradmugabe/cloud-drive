@@ -52,6 +52,7 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
         paddingX={2}
         paddingY={4}
         borderRadius={8}
+        zIndex={100}
       >
         <Heading as="h4" size="sm">
           {heading}
