@@ -8,7 +8,6 @@ import {
   Text,
   VStack,
   Button,
-  Icon,
   ButtonGroup,
 } from '@chakra-ui/react';
 import { IoMdSync } from 'react-icons/io';
