@@ -21,16 +21,36 @@ const FileContextMenu = ({ showDeleteOption = true }: Props) => {
     onClose: onDeleteClose,
   } = useDisclosure();
 
+  const onClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const onClickRename = (e: React.MouseEvent) => {
+    onClick(e);
+    onOpen();
+  };
+
+  const onClickDelete = (e: React.MouseEvent) => {
+    onClick(e);
+    onDeleteOpen();
+  };
+
   return (
     <>
-      <MenuItem onClick={onOpen} icon={<MdDriveFileRenameOutline size={20} />}>
+      <MenuItem
+        onClick={onClickRename}
+        icon={<MdDriveFileRenameOutline size={20} />}
+      >
         Rename File
       </MenuItem>
       <MenuItem icon={<MdOutlineDriveFileMove size={20} />}>Move File</MenuItem>
       {showDeleteOption && (
         <>
           <MenuDivider />
-          <MenuItem onClick={onDeleteOpen} icon={<MdDeleteOutline size={20} />}>
+          <MenuItem
+            onClick={onClickDelete}
+            icon={<MdDeleteOutline size={20} />}
+          >
             Remove
           </MenuItem>
         </>
