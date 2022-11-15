@@ -1,5 +1,13 @@
 import React from 'react';
-import { Flex, HStack, Menu, Text, VStack } from '@chakra-ui/react';
+import {
+  Flex,
+  HStack,
+  Menu,
+  MenuItem,
+  MenuList,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { FSNode } from '../../interfaces/File';
 import { TbFolder, TbFile } from 'react-icons/tb';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';

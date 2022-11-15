@@ -22,7 +22,7 @@ const ContextMenu = ({ menuType, x, y, showDeleteOption }: Props) => {
   if (x || y) <MenuList boxShadow="lg">{child}</MenuList>;
 
   return (
-    <MenuList position="absolute" top={y} left={x} boxShadow="lg">
+    <MenuList top={y} left={x} boxShadow="lg">
       {child}
     </MenuList>
   );

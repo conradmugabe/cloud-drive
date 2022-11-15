@@ -33,7 +33,6 @@ const CreateFolder = ({ onClose }: Props) => {
         borderRadius="full"
         flexDirection="column"
         gap="8"
-        as="form"
       >
         <Heading size="md">New Folder</Heading>
         <Input
