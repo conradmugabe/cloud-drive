@@ -7,19 +7,18 @@ import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 interface Props {
   file: FSNode;
   onDoubleClick: (file: FSNode) => void;
-  handleClickedChild: () => void;
 }
 
-const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
+const File = ({ file, onDoubleClick }: Props) => {
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     setSelectedFSNode(file);
-    handleClickedChild();
   };
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onClick();
+    onClick(e);
   };
 
   const handleDoubleClick = () => {

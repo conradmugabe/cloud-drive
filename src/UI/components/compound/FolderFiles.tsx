@@ -9,14 +9,9 @@ import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 const FolderFiles = () => {
   const navigate = useNavigate();
   const { setSelectedFSNode } = useSelectedFSNodeFile();
-  const [clickedChild, setClickedChild] = React.useState(false);
 
-  const handleClickedChild = () => {
-    setClickedChild(true);
-  };
-
-  const onClick = () => {
-    setClickedChild(false);
+  const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
     setSelectedFSNode(null);
   };
 
@@ -48,12 +43,7 @@ const FolderFiles = () => {
       paddingBottom={20}
       onClick={onClick}
     >
-      <FolderTree
-        files={files}
-        heading="Files"
-        onDoubleClick={onDoubleClick}
-        handleClickedChild={handleClickedChild}
-      />
+      <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
     </Box>
   );
 };

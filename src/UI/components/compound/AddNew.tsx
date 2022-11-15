@@ -5,6 +5,12 @@ import GeneralContextMenu from '../common/GeneralContextMenu';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 const AddNew = () => {
+  const { setSelectedFSNode } = useSelectedFSNodeFile();
+
+  const onClick = () => {
+    setSelectedFSNode(null);
+  };
+
   return (
     <Menu>
       <MenuButton
@@ -18,9 +24,8 @@ const AddNew = () => {
         boxShadow="xl"
         size="lg"
         icon={<TbPlus />}
-      >
-        Actions
-      </MenuButton>
+        onClick={onClick}
+      />
       <MenuList boxShadow="lg">
         <GeneralContextMenu />
       </MenuList>
