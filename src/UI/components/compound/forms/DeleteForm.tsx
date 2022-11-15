@@ -1,5 +1,13 @@
 import React from 'react';
-import { Button, ButtonGroup, Flex, Heading, Text } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Divider,
+  Flex,
+  ModalFooter,
+  ModalHeader,
+  Text,
+} from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
 
@@ -15,18 +23,15 @@ const DeleteForm = ({ onClose }: Props) => {
 
   return (
     <form onSubmit={handleDelete}>
-      <Flex
-        bgColor="whiteAlpha.900"
-        p={10}
-        borderRadius="full"
-        flexDirection="column"
-        gap={8}
-      >
-        <Heading size="md">Delete {name}</Heading>
+      <ModalHeader>Delete {name}</ModalHeader>
+      <Divider />
+      <Flex px={6} py={4}>
         <Text>
           Are you sure you want to delete {name.toLowerCase()}
           <Text fontWeight="bold">{selectedFSNode?.name}?</Text>
         </Text>
+      </Flex>
+      <ModalFooter>
         <ButtonGroup alignSelf="flex-end">
           <Button size="sm" onClick={onClose}>
             Cancel
@@ -40,7 +45,7 @@ const DeleteForm = ({ onClose }: Props) => {
             Delete
           </Button>
         </ButtonGroup>
-      </Flex>
+      </ModalFooter>
     </form>
   );
 };

@@ -43,7 +43,7 @@ const MoveFS = ({ onClose }: Props) => {
                   icon={<TbFolderPlus size={24} />}
                 />
               </Tooltip>
-              <ButtonGroup>
+              <ButtonGroup size="sm">
                 <Button onClick={onClose}>Cancel</Button>
                 <Button colorScheme="linkedin">Move</Button>
               </ButtonGroup>
