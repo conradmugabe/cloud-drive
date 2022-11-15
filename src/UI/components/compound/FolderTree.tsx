@@ -49,7 +49,7 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
         position="sticky"
         top={0}
         bgColor="white"
-        paddingX={2}
+        paddingX={4}
         paddingY={4}
         borderRadius={8}
         zIndex={100}

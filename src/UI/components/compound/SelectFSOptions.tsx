@@ -6,6 +6,10 @@ import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 const SelectFSOptions = () => {
   const { selectedFSNode } = useSelectedFSNodeFile();
+  const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
+
   return (
     <ButtonGroup>
       <IconButton
@@ -23,6 +27,7 @@ const SelectFSOptions = () => {
           variant="ghost"
           borderRadius="full"
           _hover={{ bgColor: 'linkedin.100' }}
+          onClick={onClick}
         />
         <ContextMenu
           menuType={selectedFSNode?.type || ''}

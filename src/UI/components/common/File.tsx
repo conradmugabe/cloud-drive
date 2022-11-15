@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Flex,
-  HStack,
-  Menu,
-  MenuItem,
-  MenuList,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Flex, HStack, Menu, Text, VStack } from '@chakra-ui/react';
 import { FSNode } from '../../interfaces/File';
 import { TbFolder, TbFile } from 'react-icons/tb';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
@@ -49,7 +41,6 @@ const File = ({ file, onDoubleClick }: Props) => {
 
   return (
     <Flex
-      position="relative"
       py="2.5"
       alignItems="center"
       justifyContent="space-between"
@@ -61,6 +52,7 @@ const File = ({ file, onDoubleClick }: Props) => {
       onClick={onClick}
       onContextMenu={onRightClick}
       backgroundColor={backgroundColor}
+      position="relative"
     >
       <HStack>
         {isFolder ? (
