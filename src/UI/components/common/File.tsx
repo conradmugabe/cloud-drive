@@ -1,25 +1,32 @@
 import React from 'react';
-import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { Flex, HStack, Menu, Text, VStack } from '@chakra-ui/react';
 import { FSNode } from '../../interfaces/File';
 import { TbFolder, TbFile } from 'react-icons/tb';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import ContextMenu from '../compound/ContextMenu';
+import { useContextMenu } from '../../hooks/useContextMenu';
 
 interface Props {
   file: FSNode;
   onDoubleClick: (file: FSNode) => void;
-  handleClickedChild: () => void;
 }
 
-const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
+const File = ({ file, onDoubleClick }: Props) => {
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
+  const { x, y, showContextMenu, setShowContextMenu, setCoordinates } =
+    useContextMenu();
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    setShowContextMenu(false);
     setSelectedFSNode(file);
-    handleClickedChild();
   };
 
   const onRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    onClick();
+    e.preventDefault();
+    onClick(e);
+    setCoordinates({ x: e.pageX, y: e.pageY });
+    setShowContextMenu(true);
   };
 
   const handleDoubleClick = () => {
@@ -30,6 +37,7 @@ const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
   const isSelected = selectedFSNode && selectedFSNode.id === file.id;
   const backgroundColor = isSelected ? 'linkedin.100' : 'white';
   const backgroundColorOnHover = isSelected ? '' : 'gray.200';
+  const isOpen = isSelected && showContextMenu ? true : false;
 
   return (
     <Flex
@@ -44,6 +52,7 @@ const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
       onClick={onClick}
       onContextMenu={onRightClick}
       backgroundColor={backgroundColor}
+      position="relative"
     >
       <HStack>
         {isFolder ? (
@@ -67,6 +76,9 @@ const File = ({ file, onDoubleClick, handleClickedChild }: Props) => {
           {file.updatedAt}
         </Text>
       </Flex>
+      <Menu isOpen={isOpen}>
+        <ContextMenu x={x} y={y} menuType={selectedFSNode?.type || ''} />
+      </Menu>
     </Flex>
   );
 };

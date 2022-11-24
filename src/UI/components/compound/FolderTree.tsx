@@ -10,10 +10,9 @@ interface Props {
   heading: string;
   files: FSNode[];
   onDoubleClick: (file: FSNode) => void;
-  handleClickedChild: () => void;
 }
 
-const FolderTree = ({ heading, files, onDoubleClick, handleClickedChild }: Props) => {
+const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
   const [search, setSearch] = React.useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedFSNode } = useSelectedFSNodeFile();
@@ -37,7 +36,6 @@ const FolderTree = ({ heading, files, onDoubleClick, handleClickedChild }: Props
         key={file.id}
         file={file}
         onDoubleClick={isFolder ? onDoubleClick : () => {}}
-        handleClickedChild={handleClickedChild}
       />
     );
   });
@@ -51,9 +49,10 @@ const FolderTree = ({ heading, files, onDoubleClick, handleClickedChild }: Props
         position="sticky"
         top={0}
         bgColor="white"
-        paddingX={2}
+        paddingX={4}
         paddingY={4}
         borderRadius={8}
+        zIndex={100}
       >
         <Heading as="h4" size="sm">
           {heading}

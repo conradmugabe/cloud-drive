@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, ButtonGroup, Flex, Heading } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Divider,
+  Flex,
+  ModalFooter,
+  ModalHeader,
+} from '@chakra-ui/react';
 import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
@@ -27,15 +34,9 @@ const CreateFolder = ({ onClose }: Props) => {
 
   return (
     <form onSubmit={handleCreateFolder}>
-      <Flex
-        bgColor="whiteAlpha.900"
-        p="10"
-        borderRadius="full"
-        flexDirection="column"
-        gap="8"
-        as="form"
-      >
-        <Heading size="md">New Folder</Heading>
+      <ModalHeader>New Folder</ModalHeader>
+      <Divider />
+      <Flex px={6} py={8}>
         <Input
           id={FILE_NAME}
           name={FILE_NAME}
@@ -44,6 +45,8 @@ const CreateFolder = ({ onClose }: Props) => {
           borderRadius="lg"
           onChange={handleChange}
         />
+      </Flex>
+      <ModalFooter>
         <ButtonGroup alignSelf="flex-end">
           <Button size="sm" onClick={onClose}>
             Cancel
@@ -58,7 +61,7 @@ const CreateFolder = ({ onClose }: Props) => {
             Create Folder
           </Button>
         </ButtonGroup>
-      </Flex>
+      </ModalFooter>
     </form>
   );
 };

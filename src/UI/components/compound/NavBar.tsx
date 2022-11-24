@@ -24,6 +24,7 @@ const NavBar = () => {
       position="sticky"
       top="0"
       zIndex="1"
+      onContextMenu={(e) => e.preventDefault()}
     >
       <Link to="/">
         <Logo />
