@@ -1,15 +1,15 @@
 import React from 'react';
 import { Flex, Heading, SimpleGrid, useDisclosure } from '@chakra-ui/react';
-import { FSNode } from '../../interfaces/File';
 import File from '../common/File';
 import FolderTreeViewToggler from './FolderTreeViewToggler';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import SelectFSOptions from './SelectFSOptions';
+import { FileSystemNode } from '../../../core/entities/file.system.node';
 
 interface Props {
   heading: string;
-  files: FSNode[];
-  onDoubleClick: (file: FSNode) => void;
+  files: FileSystemNode[];
+  onDoubleClick: (file: FileSystemNode) => void;
 }
 
 const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
@@ -17,7 +17,7 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedFSNode } = useSelectedFSNodeFile();
 
-  const filterFiles = (files: FSNode[], searchWord: string) => {
+  const filterFiles = (files: FileSystemNode[], searchWord: string) => {
     return files.filter((file) =>
       file.name.toLowerCase().includes(searchWord.toLowerCase())
     );
@@ -28,7 +28,7 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
     [files, search]
   );
 
-  const renderFiles = filteredFiles.map((file: FSNode) => {
+  const renderFiles = filteredFiles.map((file: FileSystemNode) => {
     const isFolder = file.type === 'folder';
 
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FSNode } from '../interfaces/File';
+import { FileSystemNode } from '../../core/entities/file.system.node';
 
 type SelectedFSNodeContextProps = {
-  selectedFSNode: FSNode | null;
-  setSelectedFSNode: (file: FSNode | null) => void;
+  selectedFSNode: FileSystemNode | null;
+  setSelectedFSNode: (file: FileSystemNode | null) => void;
 };
 
 type Props = {
@@ -22,7 +22,7 @@ const useSelectedFSNodeFile = () => {
 };
 
 const SelectedFSNodeProvider = (props: Props) => {
-  const [selectedFSNode, setSelectedFSNode] = React.useState<FSNode | null>(null);
+  const [selectedFSNode, setSelectedFSNode] = React.useState<FileSystemNode | null>(null);
 
   return (
     <SelectedFSNodeContext.Provider
