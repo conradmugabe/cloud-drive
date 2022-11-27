@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Center, Text, VStack } from '@chakra-ui/react';
+import { Center, Text, VStack } from '@chakra-ui/react';
 import FillContainer from '../common/FillContainer';
 import Logo from '../common/Logo';
 

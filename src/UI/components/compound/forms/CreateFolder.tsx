@@ -11,6 +11,7 @@ import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
 import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
+import { useAddFolder } from '../../../hooks/useFileSystemService';
 
 interface Props {
   onClose: () => void;
@@ -18,14 +19,25 @@ interface Props {
 
 const CreateFolder = ({ onClose }: Props) => {
   const FILE_NAME = 'fileName';
-  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const [fileName, setFileName] = React.useState(selectedFSNode?.name || '');
   const { folderId } = useParams();
+  const { mutate, isLoading, isSuccess } = useAddFolder();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      setSelectedFSNode(null);
+      setFileName('');
+      onClose();
+    }
+  }, [isSuccess, setSelectedFSNode, onClose]);
 
   const handleCreateFolder = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const values = { folderId, fileName };
-    alert(JSON.stringify(values, null, 2));
+    if (selectedFSNode) {
+      return;
+    }
+    mutate({ name: fileName, parentFolderId: folderId });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +69,7 @@ const CreateFolder = ({ onClose }: Props) => {
             type="submit"
             isDisabled={fileName.length === 0}
             leftIcon={<TbFolderPlus />}
+            isLoading={isLoading}
           >
             Create Folder
           </Button>
