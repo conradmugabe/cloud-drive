@@ -1,14 +1,15 @@
 import React from 'react';
 import { Flex, HStack, Menu, Text, VStack } from '@chakra-ui/react';
-import { FSNode } from '../../interfaces/File';
 import { TbFolder, TbFile } from 'react-icons/tb';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import ContextMenu from '../compound/ContextMenu';
 import { useContextMenu } from '../../hooks/useContextMenu';
+import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { formatDate } from '../../../utils/date';
 
 interface Props {
-  file: FSNode;
-  onDoubleClick: (file: FSNode) => void;
+  file: FileSystemNode;
+  onDoubleClick: (file: FileSystemNode) => void;
 }
 
 const File = ({ file, onDoubleClick }: Props) => {
@@ -38,6 +39,7 @@ const File = ({ file, onDoubleClick }: Props) => {
   const backgroundColor = isSelected ? 'linkedin.100' : 'white';
   const backgroundColorOnHover = isSelected ? '' : 'gray.200';
   const isOpen = isSelected && showContextMenu ? true : false;
+  const date = formatDate(file.updatedAt);
 
   return (
     <Flex
@@ -73,7 +75,7 @@ const File = ({ file, onDoubleClick }: Props) => {
       </HStack>
       <Flex gap={2} alignItems="center">
         <Text fontSize="sm" color="blackAlpha.600">
-          {file.updatedAt}
+          {date}
         </Text>
       </Flex>
       <Menu isOpen={isOpen}>
