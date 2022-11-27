@@ -5,6 +5,7 @@ import FolderTree from './FolderTree';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import { useFolderContents } from '../../hooks/useFolderContents';
 import { FileSystemNode } from '../../../core/entities/file.system.node';
+import EmptyFolder from './EmptyFolder';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const FolderFiles = () => {
 
   const onDoubleClick = (file: FileSystemNode) => {
     navigate(`/folder/${file.id}`);
+    setSelectedFSNode(null);
   };
 
   return (
@@ -45,6 +47,7 @@ const FolderFiles = () => {
       onClick={onClick}
     >
       <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
+      {files.length === 0 && <EmptyFolder />}
     </Box>
   );
 };
