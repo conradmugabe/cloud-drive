@@ -6,12 +6,15 @@ import MenuItem from '../../interfaces/Menu';
 import SideMenuItem from '../common/SideMenuItem';
 import { Link } from 'react-router-dom';
 import StorageStats from './StorageStats';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 
 const SideNav = () => {
   const [name, setName] = React.useState('');
+  const { setSelectedFSNode } = useSelectedFSNodeFile();
 
   const handleClick = (name: string) => {
     setName(name);
+    setSelectedFSNode(null);
   };
 
   const sideMenuItems: MenuItem[] = [
