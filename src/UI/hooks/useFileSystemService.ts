@@ -6,7 +6,12 @@ import {
 } from '@tanstack/react-query';
 import { CONTENTS, FOLDERS } from '../../core/constants';
 import { FileSystemNode } from '../../core/entities/file.system.node';
-import { addFile, addFolder, getFolderContents } from '../../web/api/file.system';
+import {
+  addFile,
+  addFolder,
+  deleteFileSystemNode,
+  getFolderContents,
+} from '../../web/api/file.system';
 import { useUser } from '../context/user-context';
 
 export const useFolderContents = (
@@ -48,6 +53,22 @@ export const useAddFile = () => {
       // const files = queryClient.getQueryData<FileSystemNode[]>(queryKey);
       // const updatedFiles = files ? [...files, data] : [data];
       // queryClient.setQueryData(queryKey, updatedFiles);
+    },
+  });
+};
+
+export const useDeleteFileSystemNode = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteFileSystemNode,
+    onSuccess(_, variables) {
+      const id = variables.parentFolderId;
+      const queryKey = [FOLDERS, CONTENTS, id];
+      const files = queryClient.getQueryData<FileSystemNode[]>(queryKey);
+      const updatedFiles = files
+        ? files.filter((file) => file.id !== variables.id)
+        : [];
+      queryClient.setQueryData(queryKey, updatedFiles);
     },
   });
 };

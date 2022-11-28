@@ -10,6 +10,10 @@ type AddFolderRequest = {
 
 type AddFileRequest = { file: File } & AddFolderRequest;
 
+type RenameFileSystemNodeRequest = { id: string; name: string };
+
+type MoveFolderRequest = { id: string };
+
 export const getFolderContents = async (
   folderId?: string
 ): Promise<FileSystemNode[]> => {
@@ -31,4 +35,25 @@ export const addFile = async (data: AddFileRequest) => {
   const res = await uploadFile(response.signedUrl, data.file);
   console.log('aws response', res);
   return;
+};
+
+export const deleteFileSystemNode = async (
+  fileSystemNode: FileSystemNode
+): Promise<void> => {
+  const { id } = fileSystemNode;
+  return requests.delete(FILE_SYSTEM_API_URL + id);
+};
+
+export const renameFileSystemNode = async ({
+  id,
+  name,
+}: RenameFileSystemNodeRequest): Promise<FileSystemNode> => {
+  return requests.patch(FILE_SYSTEM_API_URL + id, { name });
+};
+
+export const moveFolder = async ({
+  id,
+}: MoveFolderRequest): Promise<FileSystemNode> => {
+  const URL = 'folders/' + id;
+  return requests.patch(FILE_SYSTEM_API_URL + URL, {});
 };
