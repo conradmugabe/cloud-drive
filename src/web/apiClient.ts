@@ -44,9 +44,14 @@ export const sleep = (ms: number) => (response: AxiosResponse) =>
   );
 
 export const requests = {
-  get: <T>(url: string): Promise<T> => axios.get(url).then(responseBody),
-  post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
-  patch: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
-  delete: (url: string) => axios.delete(url).then(responseBody),
+  get: <T>(url: string, config?: AxiosRequestConfig): Promise<T> =>
+    axios.get(url).then(responseBody),
+  post: (url: string, body: {}, config?: AxiosRequestConfig) =>
+    axios.post(url, body).then(responseBody),
+  put: (url: string, body: {}, config?: AxiosRequestConfig) =>
+    axios.put(url, body).then(responseBody),
+  patch: (url: string, body: {}, config?: AxiosRequestConfig) =>
+    axios.patch(url, body).then(responseBody),
+  delete: (url: string, config?: AxiosRequestConfig) =>
+    axios.delete(url).then(responseBody),
 };
