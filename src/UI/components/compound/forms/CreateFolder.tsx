@@ -11,6 +11,10 @@ import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
 import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
+import {
+  useAddFolder,
+  useRenameFileSystem,
+} from '../../../hooks/useFileSystemService';
 
 interface Props {
   onClose: () => void;
@@ -18,19 +22,45 @@ interface Props {
 
 const CreateFolder = ({ onClose }: Props) => {
   const FILE_NAME = 'fileName';
-  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const [fileName, setFileName] = React.useState(selectedFSNode?.name || '');
   const { folderId } = useParams();
+  const { mutate, isLoading: isAdding, isSuccess } = useAddFolder();
+  const {
+    mutate: rename,
+    isLoading: isRenaming,
+    isSuccess: hasRenamed,
+  } = useRenameFileSystem();
+
+  const isLoading = isRenaming || isAdding ? true : false;
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      setSelectedFSNode(null);
+      setFileName('');
+      onClose();
+    }
+    if (hasRenamed) {
+      onClose();
+    }
+  }, [isSuccess, setSelectedFSNode, onClose, hasRenamed]);
 
   const handleCreateFolder = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const values = { folderId, fileName };
-    alert(JSON.stringify(values, null, 2));
+    if (selectedFSNode) {
+      rename({ name: fileName, id: selectedFSNode.id });
+      return;
+    }
+    mutate({ name: fileName, parentFolderId: folderId });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
   };
+
+  const isFolder = selectedFSNode?.type === 'folder';
+  const fileType = `${isFolder ? 'folder' : 'file'}`;
+  const label = selectedFSNode ? `Rename ${fileType}` : 'Create Folder';
 
   return (
     <form onSubmit={handleCreateFolder}>
@@ -57,8 +87,9 @@ const CreateFolder = ({ onClose }: Props) => {
             type="submit"
             isDisabled={fileName.length === 0}
             leftIcon={<TbFolderPlus />}
+            isLoading={isLoading}
           >
-            Create Folder
+            {label}
           </Button>
         </ButtonGroup>
       </ModalFooter>

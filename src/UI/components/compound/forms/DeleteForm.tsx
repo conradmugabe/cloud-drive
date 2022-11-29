@@ -10,16 +10,27 @@ import {
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
+import { useDeleteFileSystemNode } from '../../../hooks/useFileSystemService';
 
 type Props = {
   onClose: () => void;
 };
 
 const DeleteForm = ({ onClose }: Props) => {
+  const { mutate, isLoading, isSuccess } = useDeleteFileSystemNode();
   const { selectedFSNode } = useSelectedFSNodeFile();
-  const handleDelete = () => {};
   const isFolder = selectedFSNode?.type === 'folder' ? true : false;
   const name = isFolder ? 'Folder' : 'File';
+  const handleDelete = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (selectedFSNode) mutate(selectedFSNode);
+  };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      onClose();
+    }
+  }, [isSuccess, onClose]);
 
   return (
     <form onSubmit={handleDelete}>
@@ -41,6 +52,7 @@ const DeleteForm = ({ onClose }: Props) => {
             colorScheme="red"
             type="submit"
             leftIcon={<MdDeleteOutline size={20} />}
+            isLoading={isLoading}
           >
             Delete
           </Button>

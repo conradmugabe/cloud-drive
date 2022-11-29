@@ -1,23 +1,26 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import { FSNode } from '../../interfaces/File';
-import { recentFiles } from '../../../test_data';
+import { useNavigate, useParams } from 'react-router-dom';
 import FolderTree from './FolderTree';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useFolderContents } from '../../hooks/useFileSystemService';
+import { FileSystemNode } from '../../../core/entities/file.system.node';
+import EmptyFolder from './EmptyFolder';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
+  const { folderId } = useParams();
   const { setSelectedFSNode } = useSelectedFSNodeFile();
+  const { data } = useFolderContents(folderId);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setSelectedFSNode(null);
   };
 
-  const organizeFoldersToFiles = (files: FSNode[]) => {
-    const files_list: FSNode[] = [];
-    const folders_list: FSNode[] = [];
+  const organizeFoldersToFiles = (files: FileSystemNode[] = []) => {
+    const files_list: FileSystemNode[] = [];
+    const folders_list: FileSystemNode[] = [];
     files.forEach((file) => {
       const isFolder = file.type === 'folder';
       isFolder ? folders_list.push(file) : files_list.push(file);
@@ -26,12 +29,13 @@ const FolderFiles = () => {
   };
 
   const files = React.useMemo(
-    () => organizeFoldersToFiles(organizeFoldersToFiles(recentFiles)),
-    []
+    () => organizeFoldersToFiles(organizeFoldersToFiles(data)),
+    [data]
   );
 
-  const onDoubleClick = (file: FSNode) => {
+  const onDoubleClick = (file: FileSystemNode) => {
     navigate(`/folder/${file.id}`);
+    setSelectedFSNode(null);
   };
 
   return (
@@ -43,6 +47,7 @@ const FolderFiles = () => {
       onClick={onClick}
     >
       <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
+      {files.length === 0 && <EmptyFolder />}
     </Box>
   );
 };
