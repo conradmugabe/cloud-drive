@@ -18,7 +18,10 @@ import CreateFolder from './forms/CreateFolder';
 import { useTargetFolder } from '../../context/target-folder';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import { FileSystemNode } from '../../../core/entities/file.system.node';
-import { useFolderContents } from '../../hooks/useFileSystemService';
+import {
+  useFolderContents,
+  useMoveFolder,
+} from '../../hooks/useFileSystemService';
 import Folder from '../common/Folder';
 
 type Props = {
@@ -27,12 +30,20 @@ type Props = {
 
 const MoveFS = ({ onClose }: Props) => {
   const { isOpen, onOpen, onClose: onCloseModal } = useDisclosure();
+  const { mutate, isLoading, isSuccess } = useMoveFolder();
   const { selectedFSNode } = useSelectedFSNodeFile();
   const { targetFolder, setTargetFolder } = useTargetFolder();
   const { data } = useFolderContents(targetFolder?.id, {
     select(data) {
       return data.filter((file) => file.type === 'folder');
     },
+  });
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      onClose();
+      handleClose();
+    }
   });
 
   const onDoubleClick = (folder: FileSystemNode) => {
@@ -42,6 +53,11 @@ const MoveFS = ({ onClose }: Props) => {
   const handleClose = () => {
     setTargetFolder(null);
     onClose();
+  };
+
+  const handleMove = () => {
+    if (selectedFSNode)
+      mutate({ file: selectedFSNode, parentFolderId: targetFolder?.id });
   };
 
   const renderFiles = data?.map((file: FileSystemNode) => {
@@ -79,7 +95,13 @@ const MoveFS = ({ onClose }: Props) => {
               </Tooltip>
               <ButtonGroup size="sm">
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button colorScheme="linkedin">Move</Button>
+                <Button
+                  colorScheme="linkedin"
+                  onClick={handleMove}
+                  isLoading={isLoading}
+                >
+                  Move
+                </Button>
               </ButtonGroup>
             </Flex>
           </ModalFooter>
