@@ -15,6 +15,11 @@ import {
 import { TbFolderPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
 import CreateFolder from './forms/CreateFolder';
+import { useTargetFolder } from '../../context/target-folder';
+import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { useFolderContents } from '../../hooks/useFileSystemService';
+import Folder from '../common/Folder';
 
 type Props = {
   onClose: () => void;
@@ -22,15 +27,44 @@ type Props = {
 
 const MoveFS = ({ onClose }: Props) => {
   const { isOpen, onOpen, onClose: onCloseModal } = useDisclosure();
+  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { targetFolder, setTargetFolder } = useTargetFolder();
+  const { data } = useFolderContents(targetFolder?.id, {
+    select(data) {
+      return data.filter((file) => file.type === 'folder');
+    },
+  });
+
+  const onDoubleClick = (folder: FileSystemNode) => {
+    setTargetFolder(folder);
+  };
+
+  const handleClose = () => {
+    setTargetFolder(null);
+    onClose();
+  };
+
+  const renderFiles = data?.map((file: FileSystemNode) => {
+    const isTargetFolder = file.id === selectedFSNode?.id;
+    return (
+      <Folder
+        key={file.id}
+        file={file}
+        onDoubleClick={isTargetFolder ? () => {} : onDoubleClick}
+      />
+    );
+  });
 
   return (
     <>
       {!isOpen && (
         <>
           <ModalHeader>Move item to...</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={handleClose} />
           <Divider />
-          <SimpleGrid height={400} overflowY="auto"></SimpleGrid>
+          <Flex flexDirection="column" height={400} overflowY="auto">
+            {renderFiles}
+          </Flex>
           <Divider />
           <ModalFooter>
             <Flex justifyContent="space-between" width="full">
@@ -44,7 +78,7 @@ const MoveFS = ({ onClose }: Props) => {
                 />
               </Tooltip>
               <ButtonGroup size="sm">
-                <Button onClick={onClose}>Cancel</Button>
+                <Button onClick={handleClose}>Cancel</Button>
                 <Button colorScheme="linkedin">Move</Button>
               </ButtonGroup>
             </Flex>
