@@ -16,7 +16,7 @@ const SelectedFSNodeContext =
 const useSelectedFSNodeFile = () => {
   const context = React.useContext(SelectedFSNodeContext);
   if (!context) {
-    throw Error('useFile must be used inside FileContextProvider');
+    throw Error('useSelectedFSNodeFile must be used inside FileContextProvider');
   }
   return context;
 };

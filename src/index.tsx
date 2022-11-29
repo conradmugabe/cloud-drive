@@ -7,6 +7,7 @@ import { AuthProvider } from './UI/context/auth-context';
 import { UserProvider } from './UI/context/user-context';
 import { SelectedFSNodeProvider } from './UI/context/selected-fs-node-context';
 import './index.css';
+import { TargetFolderProvider } from './UI/context/target-folder';
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,9 @@ root.render(
       <AuthProvider>
         <UserProvider>
           <SelectedFSNodeProvider>
-            <App />
+            <TargetFolderProvider>
+              <App />
+            </TargetFolderProvider>
           </SelectedFSNodeProvider>
         </UserProvider>
       </AuthProvider>
