@@ -11,7 +11,10 @@ import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
 import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
-import { useAddFolder } from '../../../hooks/useFileSystemService';
+import {
+  useAddFolder,
+  useRenameFileSystem,
+} from '../../../hooks/useFileSystemService';
 
 interface Props {
   onClose: () => void;
@@ -22,7 +25,14 @@ const CreateFolder = ({ onClose }: Props) => {
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const [fileName, setFileName] = React.useState(selectedFSNode?.name || '');
   const { folderId } = useParams();
-  const { mutate, isLoading, isSuccess } = useAddFolder();
+  const { mutate, isLoading: isAdding, isSuccess } = useAddFolder();
+  const {
+    mutate: rename,
+    isLoading: isRenaming,
+    isSuccess: hasRenamed,
+  } = useRenameFileSystem();
+
+  const isLoading = isRenaming || isAdding ? true : false;
 
   React.useEffect(() => {
     if (isSuccess) {
@@ -30,11 +40,15 @@ const CreateFolder = ({ onClose }: Props) => {
       setFileName('');
       onClose();
     }
-  }, [isSuccess, setSelectedFSNode, onClose]);
+    if (hasRenamed) {
+      onClose();
+    }
+  }, [isSuccess, setSelectedFSNode, onClose, hasRenamed]);
 
   const handleCreateFolder = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (selectedFSNode) {
+      rename({ name: fileName, id: selectedFSNode.id });
       return;
     }
     mutate({ name: fileName, parentFolderId: folderId });
@@ -43,6 +57,10 @@ const CreateFolder = ({ onClose }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileName(e.target.value);
   };
+
+  const isFolder = selectedFSNode?.type === 'folder';
+  const fileType = `${isFolder ? 'folder' : 'file'}`;
+  const label = selectedFSNode ? `Rename ${fileType}` : 'Create Folder';
 
   return (
     <form onSubmit={handleCreateFolder}>
@@ -71,7 +89,7 @@ const CreateFolder = ({ onClose }: Props) => {
             leftIcon={<TbFolderPlus />}
             isLoading={isLoading}
           >
-            Create Folder
+            {label}
           </Button>
         </ButtonGroup>
       </ModalFooter>
