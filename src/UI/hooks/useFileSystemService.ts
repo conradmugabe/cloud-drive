@@ -11,6 +11,8 @@ import {
   addFolder,
   deleteFileSystemNode,
   getFolderContents,
+  moveFolder,
+  renameFileSystemNode,
 } from '../../web/api/file.system';
 import { useUser } from '../context/user-context';
 
@@ -69,6 +71,46 @@ export const useDeleteFileSystemNode = () => {
         ? files.filter((file) => file.id !== variables.id)
         : [];
       queryClient.setQueryData(queryKey, updatedFiles);
+    },
+  });
+};
+
+export const useRenameFileSystem = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: renameFileSystemNode,
+    onSuccess(data) {
+      const id = data.parentFolderId;
+      const queryKey = [FOLDERS, CONTENTS, id];
+      const files = queryClient.getQueryData<FileSystemNode[]>(queryKey);
+      const updatedFiles = files
+        ? files.map((file) => (file.id === data.id ? data : file))
+        : [data];
+      queryClient.setQueryData(queryKey, updatedFiles);
+    },
+  });
+};
+
+export const useMoveFolder = () => {
+  const queryClient = useQueryClient();
+  const { user } = useUser();
+  return useMutation({
+    mutationFn: moveFolder,
+    onSuccess(data, { file, parentFolderId }, context) {
+      const currentParent = file.parentFolderId;
+      const newParent = parentFolderId ? parentFolderId : user?.id;
+      const currentKey = [FOLDERS, CONTENTS, currentParent];
+      const newQueryKey = [FOLDERS, CONTENTS, newParent];
+      const oldFiles = queryClient.getQueryData<FileSystemNode[]>(currentKey);
+      const newFiles = queryClient.getQueryData<FileSystemNode[]>(newQueryKey);
+      const oldFilesUpdate = oldFiles
+        ? oldFiles.filter((file) => file.id !== data.id)
+        : [];
+      const newFilesUpdate = newFiles
+        ? newFiles.map((file) => (file.id === data.id ? data : file))
+        : [];
+      queryClient.setQueryData(currentKey, oldFilesUpdate);
+      queryClient.setQueryData(newQueryKey, newFilesUpdate);
     },
   });
 };

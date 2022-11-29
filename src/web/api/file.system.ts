@@ -12,7 +12,7 @@ type AddFileRequest = { file: File } & AddFolderRequest;
 
 type RenameFileSystemNodeRequest = { id: string; name: string };
 
-type MoveFolderRequest = { id: string };
+type MoveFolderRequest = { file: FileSystemNode; parentFolderId?: string };
 
 export const getFolderContents = async (
   folderId?: string
@@ -52,8 +52,10 @@ export const renameFileSystemNode = async ({
 };
 
 export const moveFolder = async ({
-  id,
+  file,
+  parentFolderId,
 }: MoveFolderRequest): Promise<FileSystemNode> => {
+  const { id } = file;
   const URL = 'folders/' + id;
-  return requests.patch(FILE_SYSTEM_API_URL + URL, {});
+  return requests.patch(FILE_SYSTEM_API_URL + URL, { parentFolderId });
 };
