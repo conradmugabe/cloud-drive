@@ -45,13 +45,13 @@ export const sleep = (ms: number) => (response: AxiosResponse) =>
 
 export const requests = {
   get: <T>(url: string, config?: AxiosRequestConfig): Promise<T> =>
-    axios.get(url).then(responseBody),
+    axios.get(url, config).then(responseBody),
   post: (url: string, body: {}, config?: AxiosRequestConfig) =>
-    axios.post(url, body).then(responseBody),
+    axios.post(url, body, config).then(responseBody),
   put: (url: string, body: {}, config?: AxiosRequestConfig) =>
-    axios.put(url, body).then(responseBody),
+    axios.put(url, body, config).then(responseBody),
   patch: (url: string, body: {}, config?: AxiosRequestConfig) =>
-    axios.patch(url, body).then(responseBody),
+    axios.patch(url, body, config).then(responseBody),
   delete: (url: string, config?: AxiosRequestConfig) =>
-    axios.delete(url).then(responseBody),
+    axios.delete(url, config).then(responseBody),
 };
