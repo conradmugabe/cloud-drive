@@ -11,6 +11,8 @@
       "@src/*": ["src/*"],
       "@entities/*": ["src/core/entities/*"],
       "@dto/*": ["src/core/dto/*"],
+      "@services/*": ["src/core/services/*"],
+      "@useCases/*": ["src/useCases/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,

@@ -4,7 +4,7 @@ import { Login, LoginResponse, LoginWithProvider } from '@dto/auth.dto';
 export abstract class AuthDatabaseService {
   abstract login(props: Login): Promise<LoginResponse>;
 
-  abstract loginWithSocialMedia(
+  abstract loginWithProvider(
     props: LoginWithProvider
   ): Promise<LoginResponse>;
 
