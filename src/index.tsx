@@ -4,7 +4,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppProvider from '@context/app.context';
 import App from '@src/App';
 import '@src/index.css';
+import { UseCasesProvider } from '@context/use.cases.context';
+import { AuthUseCases } from '@useCases/auth.use.cases';
+import { FirebaseAuthDatabaseService } from '@services/firebase/auth.firebase.database.service';
 
+const authDatabaseService = new FirebaseAuthDatabaseService();
+const authUseCases = new AuthUseCases(authDatabaseService);
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
@@ -13,10 +18,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
+    <UseCasesProvider useCases={{ authUseCases }}>
       <AppProvider>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </AppProvider>
-    </QueryClientProvider>
+    </UseCasesProvider>
   </React.StrictMode>
 );

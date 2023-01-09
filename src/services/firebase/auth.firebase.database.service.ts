@@ -6,16 +6,24 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  User as FirebaseUser,
 } from 'firebase/auth';
 import { Login, LoginResponse, LoginWithProvider, Signup } from '@dto/auth.dto';
 import { User } from '@entities/user.entity';
 import { AuthDatabaseService } from '@core/services/auth.database.service';
 import { auth } from './init';
 
-export class FirebaseDatabaseService implements AuthDatabaseService {
+export class FirebaseAuthDatabaseService implements AuthDatabaseService {
   static Providers: Record<string, AuthProvider> = {
     google: new GoogleAuthProvider(),
   };
+
+  private constructUserObject = (user: FirebaseUser): User => ({
+    id: user.uid,
+    name: user.displayName || '',
+    email: user.email || '',
+    profilePicture: user.photoURL || '',
+  });
 
   login = async ({ email, password }: Login): Promise<LoginResponse> => {
     const userCredentials = await signInWithEmailAndPassword(
@@ -23,15 +31,9 @@ export class FirebaseDatabaseService implements AuthDatabaseService {
       email,
       password
     );
-    const user = userCredentials.user;
-    const userObject: User = {
-      id: user.uid,
-      name: user.displayName || '',
-      email: user.email || '',
-      profilePicture: user.photoURL || '',
-    };
-    const token = await user.getIdToken();
-    return { token, user: userObject };
+    const user = this.constructUserObject(userCredentials.user);
+    const token = await userCredentials?.user?.getIdToken();
+    return { token, user };
   };
 
   signup = async ({ email, password }: Signup): Promise<void> => {
@@ -48,18 +50,12 @@ export class FirebaseDatabaseService implements AuthDatabaseService {
   ): Promise<LoginResponse> => {
     const userCredentials = await signInWithPopup(
       auth,
-      FirebaseDatabaseService.Providers[props.provider]
+      FirebaseAuthDatabaseService.Providers[props.provider]
     );
     const credential = GoogleAuthProvider.credentialFromResult(userCredentials);
     const token = credential?.accessToken || '';
-    const user = userCredentials.user;
-    const userObject: User = {
-      id: user.uid,
-      name: user.displayName || '',
-      email: user.email || '',
-      profilePicture: user.photoURL || '',
-    };
-    return { token, user: userObject };
+    const user = this.constructUserObject(userCredentials.user);
+    return { token, user };
   };
 
   getCurrentUser = async (): Promise<User> => {
@@ -69,13 +65,7 @@ export class FirebaseDatabaseService implements AuthDatabaseService {
     });
     const user = auth.currentUser;
     if (user === null) throw new Error(errorMessage);
-    const userObject: User = {
-      id: user.uid,
-      name: user.displayName || '',
-      email: user.email || '',
-      profilePicture: user.photoURL || '',
-    };
-    return userObject;
+    return this.constructUserObject(user);
   };
 
   logout = () => {

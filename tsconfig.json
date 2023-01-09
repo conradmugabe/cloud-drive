@@ -4,7 +4,6 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
       "@entities/*": ["src/core/entities/*"],
       "@dto/*": ["src/core/dto/*"],
       "@core/*": ["src/core/*"],
@@ -14,6 +13,7 @@
       "@config/*": ["src/config/*"],
       "@cache/*": ["src/cache/*"],
       "@services/*": ["src/services/*"],
+      "@src/*": ["src/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
