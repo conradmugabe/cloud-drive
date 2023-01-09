@@ -1,5 +1,5 @@
 import { FileSystemDatabaseService } from '@core/services/file.system.database.service';
-import { GetFolderContents } from '@dto/file.system.node.dto';
+import { CreateFolder, GetFolderContents } from '@dto/file.system.node.dto';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 
 export class FileSystemUseCases {
@@ -9,5 +9,9 @@ export class FileSystemUseCases {
     props: GetFolderContents
   ): Promise<FileSystemNode[]> => {
     return this.databaseService.getFolderContents(props);
+  };
+
+  createFolder = async (props: CreateFolder): Promise<FileSystemNode> => {
+    return this.databaseService.createFolder(props);
   };
 }
