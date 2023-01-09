@@ -1,5 +1,5 @@
 import { User } from '@entities/user.entity';
-import { AuthDatabaseService } from '@services/auth.database.service';
+import { AuthDatabaseService } from '@core/services/auth.database.service';
 import { Login, LoginResponse, LoginWithProvider } from '@dto/auth.dto';
 
 export class AuthUseCases {
