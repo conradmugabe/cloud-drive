@@ -10,7 +10,7 @@ import {
 import { TbFolderPlus } from 'react-icons/tb';
 import Input from '../../common/Input';
 import { useParams } from 'react-router-dom';
-import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '../../../context/selected.fs.node.context';
 import {
   useAddFolder,
   useRenameFileSystem,

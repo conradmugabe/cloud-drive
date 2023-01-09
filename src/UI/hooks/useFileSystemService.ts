@@ -14,7 +14,7 @@ import {
   moveFolder,
   renameFileSystemNode,
 } from '../../web/api/file.system';
-import { useUser } from '../context/user-context';
+import { useUser } from '../context/user.context';
 
 export const useFolderContents = (
   folderId?: string,

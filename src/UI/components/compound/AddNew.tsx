@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { TbPlus } from 'react-icons/tb';
 import GeneralContextMenu from '../common/GeneralContextMenu';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '../../context/selected.fs.node.context';
 
 const AddNew = () => {
   const { setSelectedFSNode } = useSelectedFSNodeFile();

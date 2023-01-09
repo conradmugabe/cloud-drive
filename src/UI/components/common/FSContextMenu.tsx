@@ -9,7 +9,7 @@ import CreateFolder from '../compound/forms/CreateFolder';
 import Modal from './Modal';
 import DeleteForm from '../compound/forms/DeleteForm';
 import MoveFS from '../compound/MoveFS';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '../../context/selected.fs.node.context';
 
 type Props = {
   showDeleteOption?: boolean;

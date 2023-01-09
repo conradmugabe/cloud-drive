@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderTree from './FolderTree';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '../../context/selected.fs.node.context';
 import { useFolderContents } from '../../hooks/useFileSystemService';
 import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import EmptyFolder from './EmptyFolder';

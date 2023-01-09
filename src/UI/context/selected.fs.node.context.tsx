@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileSystemNode } from '../../core/entities/file.system.node.entity';
+import { FileSystemNode } from '@entities/file.system.node.entity';
 
 type SelectedFSNodeContextProps = {
   selectedFSNode: FileSystemNode | null;

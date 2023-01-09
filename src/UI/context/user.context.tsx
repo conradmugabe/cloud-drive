@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../interfaces/User';
+import { User } from '@entities/user.entity';
 
 type UserContextProps = {
   user: User | null;
