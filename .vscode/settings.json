@@ -6,6 +6,7 @@
         "MESSAGINGSENDERID",
         "PROJECTID",
         "STORAGEBUCKET",
+        "svgr",
         "szhsin",
         "tanstack"
     ]

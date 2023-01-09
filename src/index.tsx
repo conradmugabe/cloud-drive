@@ -7,10 +7,10 @@ import { UseCasesProvider } from '@context/use.cases.context';
 import { AuthUseCases } from '@useCases/auth.use.cases';
 import { FirebaseAuthDatabaseService } from '@services/firebase/auth.firebase.database.service';
 import { ApiFileSystemDatabaseService } from '@services/api/file.system.api.database.service';
+import { FileSystemUseCases } from '@useCases/file.system.use.cases';
 import App from '@src/App';
 
 import '@src/index.css';
-import { FileSystemUseCases } from '@useCases/file.system.use.cases';
 
 const authDatabaseService = new FirebaseAuthDatabaseService();
 const fileSystemDatabaseService = new ApiFileSystemDatabaseService();

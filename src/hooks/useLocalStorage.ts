@@ -13,7 +13,7 @@ export const useLocalStorage = <T>(
   const [value, setValue] = React.useState(() => {
     const valueInLocalStorage = localStorage.getItem(key);
 
-    if (valueInLocalStorage) {
+    if (valueInLocalStorage && valueInLocalStorage !== 'undefined') {
       return deserialize(valueInLocalStorage);
     }
     return typeof initialValue === 'function' ? initialValue() : initialValue;
