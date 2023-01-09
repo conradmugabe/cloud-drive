@@ -3,7 +3,7 @@ import { AuthDatabaseService } from '@core/services/auth.database.service';
 import { User } from '@entities/user.entity';
 import { Login, LoginResponse, LoginWithProvider, Signup } from '@dto/auth.dto';
 
-export class LocalApiDatabaseService implements AuthDatabaseService {
+export class ApiAuthDatabaseService implements AuthDatabaseService {
   private URL = 'https://snfimsbackend.herokuapp.com/api/v1/';
 
   private routes = {

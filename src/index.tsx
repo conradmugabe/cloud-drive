@@ -1,15 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import AppProvider from '@context/app.context';
-import App from '@src/App';
-import '@src/index.css';
 import { UseCasesProvider } from '@context/use.cases.context';
 import { AuthUseCases } from '@useCases/auth.use.cases';
 import { FirebaseAuthDatabaseService } from '@services/firebase/auth.firebase.database.service';
+import { ApiFileSystemDatabaseService } from '@services/api/file.system.api.database.service';
+import App from '@src/App';
+
+import '@src/index.css';
+import { FileSystemUseCases } from '@useCases/file.system.use.cases';
 
 const authDatabaseService = new FirebaseAuthDatabaseService();
+const fileSystemDatabaseService = new ApiFileSystemDatabaseService();
+const fileSystemUseCases = new FileSystemUseCases(fileSystemDatabaseService);
 const authUseCases = new AuthUseCases(authDatabaseService);
+
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
@@ -18,7 +25,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <UseCasesProvider useCases={{ authUseCases }}>
+    <UseCasesProvider useCases={{ authUseCases, fileSystemUseCases }}>
       <AppProvider>
         <QueryClientProvider client={queryClient}>
           <App />

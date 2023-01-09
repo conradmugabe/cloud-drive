@@ -1,8 +1,10 @@
 import React from 'react';
 import { AuthUseCases } from '@useCases/auth.use.cases';
+import { FileSystemUseCases } from '@useCases/file.system.use.cases';
 
 export type UseCases = {
   authUseCases: AuthUseCases;
+  fileSystemUseCases: FileSystemUseCases;
 };
 
 type UseCasesContextProps = UseCases;

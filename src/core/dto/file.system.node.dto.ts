@@ -12,4 +12,7 @@ const RenameFileSystemNode = z.object({
 });
 type RenameFileSystemNode = z.infer<typeof RenameFileSystemNode>;
 
-export { CreateFolder, RenameFileSystemNode };
+const GetFolderContents = z.object({ folderId: z.string().optional() });
+type GetFolderContents = z.infer<typeof GetFolderContents>;
+
+export { CreateFolder, RenameFileSystemNode, GetFolderContents };
