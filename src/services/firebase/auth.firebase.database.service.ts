@@ -68,7 +68,7 @@ export class FirebaseAuthDatabaseService implements AuthDatabaseService {
     return this.constructUserObject(user);
   };
 
-  logout = () => {
-    signOut(auth);
+  logout = async (): Promise<void> => {
+    await signOut(auth);
   };
 }

@@ -34,4 +34,6 @@ export class ApiAuthDatabaseService implements AuthDatabaseService {
     const route = this.routes.auth + this.routes.authRoutes.currentUser;
     return requests.get(route);
   };
+
+  logout = async (): Promise<void> => {};
 }

@@ -16,4 +16,8 @@ export class AuthUseCases {
   getCurrentUser = (): Promise<User> => {
     return this.databaseService.getCurrentUser();
   };
+
+  logout = (): Promise<void> => {
+    return this.databaseService.logout();
+  };
 }

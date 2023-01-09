@@ -3,17 +3,22 @@ import { Button, HStack, Text } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../common/Logo';
 import { useUser } from '@context/user.context';
+import { useAuth } from '@cache/users';
 
 const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 
 const NavBar = () => {
+  const { useLogout } = useAuth();
+  const { mutate, isLoading, isSuccess } = useLogout();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setUser(null);
-    navigate('/');
-  };
+  React.useEffect(() => {
+    if (isSuccess) {
+      setUser(null);
+      navigate('/');
+    }
+  }, [isSuccess, navigate, setUser]);
 
   return (
     <HStack
@@ -30,7 +35,11 @@ const NavBar = () => {
         <Logo />
       </Link>
       {user ? (
-        <Button colorScheme="linkedin" onClick={handleLogout}>
+        <Button
+          colorScheme="linkedin"
+          onClick={() => mutate()}
+          isLoading={isLoading}
+        >
           Logout
         </Button>
       ) : (

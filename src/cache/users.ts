@@ -41,5 +41,12 @@ export const useAuth = () => {
     return { isLoading };
   };
 
-  return { useLoginWithProvider, useCurrentUser, useLogin };
+  const useLogout = () => {
+    const { mutate, isLoading, isError, isSuccess } = useMutation({
+      mutationFn: authUseCases.logout,
+    });
+    return { mutate, isLoading, isError, isSuccess };
+  };
+
+  return { useLoginWithProvider, useCurrentUser, useLogin, useLogout };
 };
