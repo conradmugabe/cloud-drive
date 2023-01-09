@@ -6,5 +6,3 @@ export const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGINGSENDERID,
   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APPID,
 };
-
-console.log('firebaseConfig', firebaseConfig);

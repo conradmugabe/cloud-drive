@@ -2,10 +2,16 @@ import React from 'react';
 import { Button, Flex, Icon, SimpleGrid, Text } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
 import { useAuth } from '@cache/users';
+import { useNavigate } from 'react-router-dom';
 
 const LoginWithProvider = () => {
   const { useLoginWithProvider } = useAuth();
-  const { mutate, isLoading } = useLoginWithProvider();
+  const { mutate, isLoading, isSuccess } = useLoginWithProvider();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (isSuccess) navigate('/');
+  }, [navigate, isSuccess]);
 
   return (
     <SimpleGrid>
