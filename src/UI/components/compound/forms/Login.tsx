@@ -10,7 +10,7 @@ import {
   InputRightElement,
   Text,
 } from '@chakra-ui/react';
-import { useUser } from '../../../context/user.context';
+import { useUser } from '@context/user.context';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {

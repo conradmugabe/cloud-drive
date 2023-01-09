@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, HStack, Text } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../common/Logo';
-import { useUser } from '../../context/user.context';
+import { useUser } from '@context/user.context';
 
 const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 

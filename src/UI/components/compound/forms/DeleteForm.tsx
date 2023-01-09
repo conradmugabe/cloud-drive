@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { useSelectedFSNodeFile } from '../../../context/selected.fs.node.context';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import { useDeleteFileSystemNode } from '../../../hooks/useFileSystemService';
 
 type Props = {

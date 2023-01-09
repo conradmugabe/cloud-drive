@@ -1,6 +1,6 @@
 import { ChakraProvider, Spinner } from '@chakra-ui/react';
 import React from 'react';
-import { useUser } from './UI/context/user.context';
+import { useUser } from '@context/user.context';
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 

@@ -15,8 +15,8 @@ import {
 import { TbFolderPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
 import CreateFolder from './forms/CreateFolder';
-import { useTargetFolder } from '../../context/target.folder.context';
-import { useSelectedFSNodeFile } from '../../context/selected.fs.node.context';
+import { useTargetFolder } from '@context/target.folder.context';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import {
   useFolderContents,

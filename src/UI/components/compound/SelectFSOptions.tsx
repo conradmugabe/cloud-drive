@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { MdDeleteOutline, MdOutlineMoreVert } from 'react-icons/md';
 import ContextMenu from './ContextMenu';
-import { useSelectedFSNodeFile } from '../../context/selected.fs.node.context';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import Modal from '../common/Modal';
 import DeleteForm from './forms/DeleteForm';
 
