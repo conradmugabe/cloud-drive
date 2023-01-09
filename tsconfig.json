@@ -9,7 +9,7 @@
       "@core/*": ["src/core/*"],
       "@useCases/*": ["src/useCases/*"],
       "@context/*": ["src/context/*"],
-      "@hooks/*": ["src/UI/hooks/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@config/*": ["src/config/*"],
       "@cache/*": ["src/cache/*"],
       "@services/*": ["src/services/*"],
