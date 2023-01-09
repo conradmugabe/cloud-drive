@@ -13,7 +13,7 @@
       "@hooks/*": ["src/UI/hooks/*"],
       "@config/*": ["src/config/*"],
       "@cache/*": ["src/cache/*"],
-      "@services/": ["src/services/*"],
+      "@services/*": ["src/services/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,

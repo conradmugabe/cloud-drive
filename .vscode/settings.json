@@ -1,6 +1,11 @@
 {
     "cSpell.words": [
+        "APIKEY",
+        "AUTHDOMAIN",
         "Buildx",
+        "MESSAGINGSENDERID",
+        "PROJECTID",
+        "STORAGEBUCKET",
         "szhsin",
         "tanstack"
     ]
