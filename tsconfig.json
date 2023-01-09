@@ -10,6 +10,7 @@
     "paths": {
       "@src/*": ["src/*"],
       "@entities/*": ["src/core/entities/*"],
+      "@dto/*": ["src/core/dto/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
