@@ -13,7 +13,7 @@
       "@dto/*": ["src/core/dto/*"],
       "@services/*": ["src/core/services/*"],
       "@useCases/*": ["src/useCases/*"],
-      "@context/*": ["src/UI/context/*"],
+      "@context/*": ["src/context/*"],
       "@hooks/*": ["src/UI/hooks/*"],
       "@config/*": ["src/config/*"],
     },
