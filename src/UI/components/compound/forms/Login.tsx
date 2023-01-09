@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useUser } from '@context/user.context';
 import { Link, useNavigate } from 'react-router-dom';
+import LoginWithProvider from './LoginWithProvider';
 
 const Login = () => {
   const { setUser } = useUser();
@@ -80,6 +81,7 @@ const Login = () => {
             Sign In
           </Button>
         </Flex>
+        <LoginWithProvider />
       </Flex>
     </Box>
   );
