@@ -1,13 +1,19 @@
+import { z } from 'zod';
 import { BaseEntity } from './base.entity';
 
-export type FileSystemNode = {
-  name: string;
-  type: string;
-  path: string;
-  pathIds: string;
-  parentFolderId: string;
-  createdBy: string;
-  ownedBy: string;
-  size: number;
-  fileUrl?: string;
-} & BaseEntity;
+const FileSystemNode = BaseEntity.merge(
+  z.object({
+    name: z.string(),
+    type: z.string(),
+    path: z.string(),
+    pathIds: z.string(),
+    parentFolderId: z.string(),
+    createdBy: z.string(),
+    ownedBy: z.string(),
+    size: z.number(),
+    fileUrl: z.string().optional(),
+  })
+);
+type FileSystemNode = z.infer<typeof FileSystemNode>;
+
+export { FileSystemNode };
