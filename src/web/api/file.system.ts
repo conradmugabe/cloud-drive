@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { FILE_SYSTEM_API_URL } from '../../core/constants';
-import { FileSystemNode } from '../../core/entities/file.system.node';
+import { FileSystemNode } from '../../core/entities/file.system.node.entity';
 import { requests } from '../apiClient';
 import { getUploadKey, uploadFile } from './file.upload';
 

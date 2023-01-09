@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '@entities/base.entity';
 
 const FileSystemNode = BaseEntity.merge(
   z.object({

@@ -4,7 +4,7 @@ import { TbFolder, TbFile } from 'react-icons/tb';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 import ContextMenu from '../compound/ContextMenu';
 import { useContextMenu } from '../../hooks/useContextMenu';
-import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import { formatDate } from '../../../utils/date';
 
 interface Props {

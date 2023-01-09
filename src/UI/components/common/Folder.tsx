@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import { TbFolder } from 'react-icons/tb';
 import { formatDate } from '../../../utils/date';
-import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import { useTargetFolder } from '../../context/target-folder';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
 

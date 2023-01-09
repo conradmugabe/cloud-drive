@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileSystemNode } from '../../core/entities/file.system.node';
+import { FileSystemNode } from '../../core/entities/file.system.node.entity';
 
 type SelectedFSNodeContextProps = {
   selectedFSNode: FileSystemNode | null;
@@ -16,13 +16,16 @@ const SelectedFSNodeContext =
 const useSelectedFSNodeFile = () => {
   const context = React.useContext(SelectedFSNodeContext);
   if (!context) {
-    throw Error('useSelectedFSNodeFile must be used inside FileContextProvider');
+    throw Error(
+      'useSelectedFSNodeFile must be used inside FileContextProvider'
+    );
   }
   return context;
 };
 
 const SelectedFSNodeProvider = (props: Props) => {
-  const [selectedFSNode, setSelectedFSNode] = React.useState<FileSystemNode | null>(null);
+  const [selectedFSNode, setSelectedFSNode] =
+    React.useState<FileSystemNode | null>(null);
 
   return (
     <SelectedFSNodeContext.Provider

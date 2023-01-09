@@ -17,7 +17,7 @@ import Modal from '../common/Modal';
 import CreateFolder from './forms/CreateFolder';
 import { useTargetFolder } from '../../context/target-folder';
 import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
-import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import {
   useFolderContents,
   useMoveFolder,

@@ -5,7 +5,7 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import { CONTENTS, FOLDERS } from '../../core/constants';
-import { FileSystemNode } from '../../core/entities/file.system.node';
+import { FileSystemNode } from '../../core/entities/file.system.node.entity';
 import {
   addFile,
   addFolder,
