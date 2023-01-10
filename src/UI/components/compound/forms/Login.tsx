@@ -36,14 +36,6 @@ const Login = () => {
   const handleLoginUser = (e: React.FormEvent) => {
     e.preventDefault();
     mutate({ email, password });
-    const userData = {
-      id: '1',
-      name: 'John Doe',
-      email: 'johndoe@mail.com',
-      profilePicture: 'https://randomuser.me/api/portraits/',
-    };
-    setUser({ ...userData, email, name: email.split('@')[0] });
-    navigate('/');
   };
 
   React.useEffect(() => {

@@ -15,9 +15,18 @@ export class ApiAuthDatabaseService implements AuthDatabaseService {
     },
   };
 
-  login = (props: Login): Promise<LoginResponse> => {
+  login = async (props: Login): Promise<LoginResponse> => {
     const route = this.routes.auth + this.routes.authRoutes.login;
-    return requests.post(route, props);
+    await requests.post(route, props);
+    return {
+      token: 'some random token',
+      user: {
+        id: '1',
+        name: 'John Doe',
+        email: 'johndoe@mail.com',
+        profilePicture: 'https://randomuser.me/api/portraits/',
+      },
+    };
   };
 
   signup = (props: Signup): Promise<Pick<LoginResponse, 'token'>> => {
