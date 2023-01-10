@@ -20,14 +20,14 @@ export const useAuth = () => {
   };
 
   const useLogin = () => {
-    const { mutate, isLoading, isError } = useMutation({
+    const { mutate, isLoading, isError, isSuccess } = useMutation({
       mutationFn: authUseCases.login,
       onSuccess: ({ token, user }) => {
         setToken(token);
         setUser(user);
       },
     });
-    return { mutate, isLoading, isError };
+    return { mutate, isLoading, isError, isSuccess };
   };
 
   const useCurrentUser = () => {

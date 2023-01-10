@@ -13,8 +13,11 @@ import {
 import { useUser } from '@context/user.context';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginWithProvider from './LoginWithProvider';
+import { useAuth } from '@cache/users';
 
 const Login = () => {
+  const { useLogin } = useAuth();
+  const { mutate, isLoading, isSuccess } = useLogin();
   const { setUser } = useUser();
   const navigate = useNavigate();
   const [values, setValues] = React.useState({ email: '', password: '' });
@@ -32,7 +35,7 @@ const Login = () => {
 
   const handleLoginUser = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('login in');
+    mutate({ email, password });
     const userData = {
       id: '1',
       name: 'John Doe',
@@ -42,6 +45,10 @@ const Login = () => {
     setUser({ ...userData, email, name: email.split('@')[0] });
     navigate('/');
   };
+
+  React.useEffect(() => {
+    if (isSuccess) navigate('/');
+  });
 
   return (
     <Box as="form" onSubmit={handleLoginUser}>
@@ -77,7 +84,7 @@ const Login = () => {
           >
             <Link to="/auth/forgot_password">Forgot password?</Link>
           </Text>
-          <Button colorScheme="linkedin" type="submit">
+          <Button colorScheme="linkedin" type="submit" isLoading={isLoading}>
             Sign In
           </Button>
         </Flex>
