@@ -80,8 +80,7 @@ export const useRenameFileSystem = () => {
   return useMutation({
     mutationFn: renameFileSystemNode,
     onSuccess(data) {
-      const id = data.parentFolderId;
-      const queryKey = [FOLDERS, CONTENTS, id];
+      const queryKey = [FOLDERS, CONTENTS, data.parentFolderId];
       const files = queryClient.getQueryData<FileSystemNode[]>(queryKey);
       const updatedFiles = files
         ? files.map((file) => (file.id === data.id ? data : file))
@@ -96,7 +95,7 @@ export const useMoveFolder = () => {
   const { user } = useUser();
   return useMutation({
     mutationFn: moveFolder,
-    onSuccess(data, { file, parentFolderId }, context) {
+    onSuccess(data, { file, parentFolderId }) {
       const currentParent = file.parentFolderId;
       const newParent = parentFolderId ? parentFolderId : user?.id;
       const currentKey = [FOLDERS, CONTENTS, currentParent];
