@@ -3,14 +3,15 @@ import { Box } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FolderTree from './FolderTree';
 import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
-import { useFolderContents } from '../../hooks/useFileSystemService';
-import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
+import { FileSystemNode } from '@entities/file.system.node.entity';
 import EmptyFolder from './EmptyFolder';
+import { useFileSystem } from '@cache/file.system';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
   const { folderId } = useParams();
   const { setSelectedFSNode } = useSelectedFSNodeFile();
+  const { useFolderContents } = useFileSystem();
   const { data } = useFolderContents(folderId);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
