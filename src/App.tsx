@@ -1,7 +1,8 @@
-import { ChakraProvider, Spinner } from '@chakra-ui/react';
 import React from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { useUser } from '@context/user.context';
 import { useAuth } from '@cache/users';
+import FullPageSpinner from './UI/pages/FullPageSpinner';
 const AuthenticatedApp = React.lazy(() => import('./AuthenticatedApp'));
 const UnauthenticatedApp = React.lazy(() => import('./UnauthenticatedApp'));
 
@@ -10,16 +11,16 @@ const App = () => {
   const { useCurrentUser } = useAuth();
   const { isLoading } = useCurrentUser();
 
-  if (isLoading) return <Spinner size="xl" />;
+  if (isLoading) return <FullPageSpinner />;
 
   return (
     <ChakraProvider>
       {user ? (
-        <React.Suspense fallback={<Spinner size="xl" />}>
+        <React.Suspense fallback={<FullPageSpinner />}>
           <AuthenticatedApp />
         </React.Suspense>
       ) : (
-        <React.Suspense fallback={<Spinner size="xl" />}>
+        <React.Suspense fallback={<FullPageSpinner />}>
           <UnauthenticatedApp />
         </React.Suspense>
       )}
