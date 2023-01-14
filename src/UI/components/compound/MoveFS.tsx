@@ -18,10 +18,7 @@ import CreateFolder from './forms/CreateFolder';
 import { useTargetFolder } from '@context/target.folder.context';
 import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
-import {
-  useFolderContents,
-  useMoveFolder,
-} from '../../hooks/useFileSystemService';
+import { useFileSystem } from '@cache/file.system';
 import Folder from '../common/Folder';
 
 type Props = {
@@ -30,6 +27,7 @@ type Props = {
 
 const MoveFS = ({ onClose }: Props) => {
   const { isOpen, onOpen, onClose: onCloseModal } = useDisclosure();
+  const { useFolderContents, useMoveFolder } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useMoveFolder();
   const { selectedFSNode } = useSelectedFSNodeFile();
   const { targetFolder, setTargetFolder } = useTargetFolder();

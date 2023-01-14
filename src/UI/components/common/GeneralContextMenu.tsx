@@ -3,24 +3,15 @@ import { MenuItem, useDisclosure } from '@chakra-ui/react';
 import { TbFilePlus, TbFolderPlus } from 'react-icons/tb';
 import CreateFolder from '../compound/forms/CreateFolder';
 import Modal from './Modal';
-import { useAddFile } from '../../hooks/useFileSystemService';
-import { useParams } from 'react-router-dom';
 
 const GeneralContextMenu = () => {
-  const [file, setFile] = React.useState<File>();
+  const [, setFile] = React.useState<File>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { folderId } = useParams();
-  const { mutate } = useAddFile();
   const input = React.useRef<HTMLInputElement>(null);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setFile(event.target.files[0]);
-      mutate({
-        name: 'new file',
-        file: event.target.files[0],
-        parentFolderId: folderId,
-      });
     }
   };
 

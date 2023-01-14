@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, ModalHeader } from '@chakra-ui/react';
 import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
-import { useRenameFileSystem } from '@src/UI/hooks/useFileSystemService';
+import { useFileSystem } from '@cache/file.system';
 import FolderForm from './FolderForm';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const RenameFolder = ({ onClose }: Props) => {
+  const { useRenameFileSystem } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useRenameFileSystem();
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder';

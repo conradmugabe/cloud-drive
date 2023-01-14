@@ -1,3 +1,5 @@
+import { HasID } from '@entities/base.entity';
+import { FileSystemNode } from '@entities/file.system.node.entity';
 import { z } from 'zod';
 
 const CreateFolder = z.object({
@@ -15,4 +17,19 @@ type RenameFileSystemNode = z.infer<typeof RenameFileSystemNode>;
 const GetFolderContents = z.object({ folderId: z.string().optional() });
 type GetFolderContents = z.infer<typeof GetFolderContents>;
 
-export { CreateFolder, RenameFileSystemNode, GetFolderContents };
+const DeleteFileSystemNode = HasID;
+type DeleteFileSystemNode = z.infer<typeof DeleteFileSystemNode>;
+
+const MoveFileSystemNode = z.object({
+  file: FileSystemNode,
+  parentFolderId: z.string().optional(),
+});
+type MoveFileSystemNode = z.infer<typeof MoveFileSystemNode>;
+
+export {
+  CreateFolder,
+  RenameFileSystemNode,
+  GetFolderContents,
+  DeleteFileSystemNode,
+  MoveFileSystemNode,
+};

@@ -14,4 +14,27 @@ export abstract class FileSystemDbService {
     props: CreateFolder,
     pathIds: string
   ): Promise<FileSystemNode>;
+
+  abstract deleteFileSystemNode(id: string): Promise<void>;
+
+  abstract moveFileSystemNode(
+    props: FileSystemDbService.MoveFileSystemNode
+  ): Promise<FileSystemNode>;
+
+  abstract renameFileSystemNode(
+    props: FileSystemDbService.RenameFileSystemNode
+  ): Promise<FileSystemNode>;
+}
+
+export namespace FileSystemDbService {
+  export type MoveFileSystemNode = {
+    id: string;
+    parentFolderId: string;
+    pathIds: string;
+  };
+
+  export type RenameFileSystemNode = {
+    name: string;
+    id: string;
+  };
 }

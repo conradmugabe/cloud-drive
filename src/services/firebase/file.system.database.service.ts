@@ -1,6 +1,15 @@
 import { CreateFolder, GetFolderContents } from '@dto/file.system.node.dto';
 import { FileSystemNode } from '@entities/file.system.node.entity';
-import { addDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import {
+  addDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { auth, databases } from './init';
 import { FileSystemDbService } from '@services/api.local/services/file.system.db.service';
 
@@ -12,8 +21,8 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
   }: GetFolderContents): Promise<FileSystemNode[]> => {
     const q = query(
       databases.fileSystem,
-      where('parentId', '==', folderId),
-      where('userId', '==', this.getUserId())
+      where('parentFolderId', '==', folderId || this.getUserId()),
+      where('ownedBy', '==', this.getUserId())
     );
     const querySnapshot = await getDocs(q);
     const nodes: FileSystemNode[] = [];
@@ -47,5 +56,33 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) throw new Error('No such document!');
     return { id: docSnap.id, ...docSnap.data() };
+  };
+
+  deleteFileSystemNode = async (id: string) => {
+    await deleteDoc(doc(databases.fileSystem, id));
+  };
+
+  moveFileSystemNode = async ({
+    id,
+    parentFolderId,
+    pathIds,
+  }: FileSystemDbService.MoveFileSystemNode): Promise<FileSystemNode> => {
+    const docRef = doc(databases.fileSystem, id);
+    await updateDoc(docRef, {
+      parentFolderId,
+      pathIds,
+    });
+    return this.getFolderById(id);
+  };
+
+  renameFileSystemNode = async ({
+    id,
+    name,
+  }: FileSystemDbService.RenameFileSystemNode): Promise<FileSystemNode> => {
+    const docRef = doc(databases.fileSystem, id);
+    await updateDoc(docRef, {
+      name,
+    });
+    return this.getFolderById(id);
   };
 }

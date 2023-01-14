@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, ModalHeader } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { useAddFolder } from '../../../hooks/useFileSystemService';
+import { useFileSystem } from '@cache/file.system';
 import FolderForm from './FolderForm';
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
 const CreateFolder = ({ onClose }: Props) => {
   const label = 'Create Folder';
   const { folderId } = useParams();
-  const { mutate, isLoading, isSuccess } = useAddFolder();
+  const { useCreateFolder } = useFileSystem();
+  const { mutate, isLoading, isSuccess } = useCreateFolder();
 
   const handleCreateFolder = (fileName: string) => {
     mutate({ name: fileName, parentFolderId: folderId });

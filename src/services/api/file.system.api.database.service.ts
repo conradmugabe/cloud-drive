@@ -1,6 +1,10 @@
 import { requests } from '@config/axiosClient';
 import { FileSystemDatabaseService } from '@core/services/file.system.database.service';
-import { CreateFolder, GetFolderContents } from '@dto/file.system.node.dto';
+import {
+  CreateFolder,
+  DeleteFileSystemNode,
+  GetFolderContents,
+} from '@dto/file.system.node.dto';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 
 export class ApiFileSystemDatabaseService implements FileSystemDatabaseService {
@@ -26,4 +30,21 @@ export class ApiFileSystemDatabaseService implements FileSystemDatabaseService {
       parentFolderId,
     });
   };
+
+  deleteFileSystemNode = ({ id }: DeleteFileSystemNode): Promise<void> =>
+    requests.delete(this.FILE_SYSTEM_API_URL + id);
+
+  moveFileSystemNode = ({
+    id,
+    parentFolderId,
+  }: FileSystemDatabaseService.MoveFileSystemNode): Promise<FileSystemNode> => {
+    const URL = 'folders/' + id;
+    return requests.patch(this.FILE_SYSTEM_API_URL + URL, { parentFolderId });
+  };
+
+  renameFileSystemNode = ({
+    id,
+    name,
+  }: FileSystemDatabaseService.RenameFileSystemNode): Promise<FileSystemNode> =>
+    requests.patch(this.FILE_SYSTEM_API_URL + id, { name });
 }
