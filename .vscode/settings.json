@@ -3,6 +3,7 @@
         "APIKEY",
         "AUTHDOMAIN",
         "Buildx",
+        "DATABASEURL",
         "MESSAGINGSENDERID",
         "PROJECTID",
         "STORAGEBUCKET",
