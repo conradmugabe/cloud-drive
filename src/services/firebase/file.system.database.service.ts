@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -27,7 +28,12 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
     const querySnapshot = await getDocs(q);
     const nodes: FileSystemNode[] = [];
     querySnapshot.forEach((doc) => {
-      nodes.push({ id: doc.id, ...doc.data() });
+      nodes.push({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: String(doc.data().createdAt.toDate().toISOString()),
+        updatedAt: String(doc.data().updatedAt.toDate().toISOString()),
+      });
     });
     return nodes;
   };
@@ -40,13 +46,13 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
       name,
       ownedBy: this.getUserId(),
       createdBy: this.getUserId(),
-      createdAt: '',
       parentFolderId: parentFolderId || this.getUserId(),
       path: '',
       pathIds,
       size: 0,
       type: 'folder',
-      updatedAt: '',
+      updatedAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
     return this.getFolderById(docRef.id);
   };
@@ -55,7 +61,12 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
     const docRef = doc(databases.fileSystem, id);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) throw new Error('No such document!');
-    return { id: docSnap.id, ...docSnap.data() };
+    return {
+      id: docSnap.id,
+      ...docSnap.data(),
+      createdAt: String(docSnap.data().createdAt.toDate().toISOString()),
+      updatedAt: String(docSnap.data().updatedAt.toDate().toISOString()),
+    };
   };
 
   deleteFileSystemNode = async (id: string) => {
@@ -71,6 +82,7 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
     await updateDoc(docRef, {
       parentFolderId,
       pathIds,
+      updatedAt: serverTimestamp(),
     });
     return this.getFolderById(id);
   };
@@ -82,6 +94,7 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
     const docRef = doc(databases.fileSystem, id);
     await updateDoc(docRef, {
       name,
+      updatedAt: serverTimestamp(),
     });
     return this.getFolderById(id);
   };

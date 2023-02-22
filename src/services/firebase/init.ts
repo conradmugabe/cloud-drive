@@ -4,10 +4,11 @@ import {
   collection,
   CollectionReference,
   DocumentData,
+  FieldValue,
   getFirestore,
+  Timestamp,
 } from 'firebase/firestore';
 import { firebaseConfig } from '@config/firebase';
-import { FileSystemNode } from '@entities/file.system.node.entity';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -17,8 +18,23 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
   return collection(firestore, collectionName) as CollectionReference<T>;
 };
 
+type FileSystemNodeModel = {
+  id: string;
+  name: string;
+  type: string;
+  path: string;
+  pathIds: string;
+  parentFolderId: string;
+  createdBy: string;
+  ownedBy: string;
+  size: number;
+  fileUrl?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+};
+
 const databases = {
-  fileSystem: createCollection<Omit<FileSystemNode, 'id'>>('file-system'),
+  fileSystem: createCollection<Omit<FileSystemNodeModel, 'id'>>('file-system'),
 };
 
 export { auth, databases };
