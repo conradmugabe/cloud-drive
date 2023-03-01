@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, HStack, Text } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
+import { QueryCache } from '@tanstack/react-query';
 import Logo from '../common/Logo';
 import { useUser } from '@context/user.context';
 import { useAuth } from '@cache/users';
@@ -12,6 +13,14 @@ const NavBar = () => {
   const { mutate, isLoading, isSuccess } = useLogout();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+
+  const logout = () => {
+    mutate();
+    redirect('/');
+    const queryCache = new QueryCache();
+    queryCache.clear();
+    return;
+  };
 
   React.useEffect(() => {
     if (isSuccess) {
@@ -35,11 +44,7 @@ const NavBar = () => {
         <Logo />
       </Link>
       {user ? (
-        <Button
-          colorScheme="linkedin"
-          onClick={() => mutate()}
-          isLoading={isLoading}
-        >
+        <Button colorScheme="linkedin" onClick={logout} isLoading={isLoading}>
           Logout
         </Button>
       ) : (

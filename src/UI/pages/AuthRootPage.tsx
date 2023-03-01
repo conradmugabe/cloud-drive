@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Center, SimpleGrid } from '@chakra-ui/react';
+import { Box, Center, SimpleGrid, Image } from '@chakra-ui/react';
+import image from '../../assets/secure_login.svg';
 import { Outlet } from 'react-router-dom';
 
 const AuthRootPage = () => {
@@ -14,7 +15,9 @@ const AuthRootPage = () => {
           paddingInline="48"
           h="80vh"
         >
-          <Box w="100%" h="100%" bgColor="blue.100"></Box>
+          <Box w="100%" h="100%" display="grid" placeContent="center">
+            <Image src={image} />
+          </Box>
           <Outlet />
         </SimpleGrid>
       </Center>

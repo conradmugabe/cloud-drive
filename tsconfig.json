@@ -14,6 +14,7 @@
       "@config/*": ["src/config/*"],
       "@cache/*": ["src/cache/*"],
       "@services/*": ["src/services/*"],
+      "@asserts/*":["src/asserts/*"],
       "@src/*": ["src/*"],
     },
     "allowJs": true,

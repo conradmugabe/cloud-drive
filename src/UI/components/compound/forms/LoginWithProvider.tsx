@@ -14,7 +14,7 @@ const LoginWithProvider = () => {
   }, [navigate, isSuccess]);
 
   return (
-    <SimpleGrid>
+    <SimpleGrid placeContent="center">
       <Flex
         gap="5"
         alignItems="center"
