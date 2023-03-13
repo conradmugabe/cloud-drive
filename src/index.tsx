@@ -1,33 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from './UI/context/auth-context';
-import { UserProvider } from './UI/context/user-context';
-import { SelectedFSNodeProvider } from './UI/context/selected-fs-node-context';
-import './index.css';
+
+import AppProvider from '@context/app.context';
+import { UseCasesProvider } from '@context/use.cases.context';
+import { AuthUseCases } from '@useCases/auth.use.cases';
+import { FirebaseAuthDatabaseService } from '@services/firebase/auth.firebase.database.service';
+import { FirebaseFileSystemDatabaseService } from '@services/firebase/file.system.database.service';
+import { FileSystemUseCases } from '@useCases/file.system.use.cases';
+import App from '@src/App';
+
+import '@src/index.css';
+import { ApiLocal } from '@services/api.local/api.local';
+
+const databaseService = new FirebaseFileSystemDatabaseService();
+const authDatabaseService = new FirebaseAuthDatabaseService();
+const fileSystemDatabaseService = new ApiLocal(databaseService);
+const fileSystemUseCases = new FileSystemUseCases(fileSystemDatabaseService);
+const authUseCases = new AuthUseCases(authDatabaseService);
 
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <UserProvider>
-          <SelectedFSNodeProvider>
-            <App />
-          </SelectedFSNodeProvider>
-        </UserProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <UseCasesProvider useCases={{ authUseCases, fileSystemUseCases }}>
+      <AppProvider>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </AppProvider>
+    </UseCasesProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

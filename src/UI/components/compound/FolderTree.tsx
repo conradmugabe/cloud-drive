@@ -2,9 +2,9 @@ import React from 'react';
 import { Flex, Heading, SimpleGrid, useDisclosure } from '@chakra-ui/react';
 import File from '../common/File';
 import FolderTreeViewToggler from './FolderTreeViewToggler';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import SelectFSOptions from './SelectFSOptions';
-import { FileSystemNode } from '../../../core/entities/file.system.node';
+import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 
 interface Props {
   heading: string;

@@ -1,19 +1,33 @@
 import React from 'react';
 import { Button, HStack, Text } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
+import { QueryCache } from '@tanstack/react-query';
 import Logo from '../common/Logo';
-import { useUser } from '../../context/user-context';
+import { useUser } from '@context/user.context';
+import { useAuth } from '@cache/users';
 
 const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 
 const NavBar = () => {
+  const { useLogout } = useAuth();
+  const { mutate, isLoading, isSuccess } = useLogout();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setUser(null);
-    navigate('/');
+  const logout = () => {
+    mutate();
+    redirect('/');
+    const queryCache = new QueryCache();
+    queryCache.clear();
+    return;
   };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      setUser(null);
+      navigate('/');
+    }
+  }, [isSuccess, navigate, setUser]);
 
   return (
     <HStack
@@ -30,7 +44,7 @@ const NavBar = () => {
         <Logo />
       </Link>
       {user ? (
-        <Button colorScheme="linkedin" onClick={handleLogout}>
+        <Button colorScheme="linkedin" onClick={logout} isLoading={isLoading}>
           Logout
         </Button>
       ) : (

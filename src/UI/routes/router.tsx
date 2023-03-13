@@ -1,14 +1,15 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import FullScreen from '../components/common/FullScreen';
 import FolderFiles from '../components/compound/FolderFiles';
+import LoginWithProvider from '../components/compound/forms/LoginWithProvider';
 import NavBar from '../components/compound/NavBar';
 import AuthRootPage from '../pages/AuthRootPage';
 import Dashboard from '../pages/Dashboard';
 import ErrorPage from '../pages/ErrorPage';
-import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+// import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import Landing from '../pages/Landing';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
+// import LoginPage from '../pages/LoginPage';
+// import RegisterPage from '../pages/RegisterPage';
 
 export const unauthenticatedRoutes = createBrowserRouter([
   {
@@ -26,9 +27,9 @@ export const unauthenticatedRoutes = createBrowserRouter([
         path: 'auth',
         element: <AuthRootPage />,
         children: [
-          { path: 'login', element: <LoginPage /> },
-          { path: 'register', element: <RegisterPage /> },
-          { path: 'forgot_password', element: <ForgotPasswordPage /> },
+          { path: 'login', element: <LoginWithProvider /> },
+          // { path: 'register', element: <RegisterPage /> },
+          // { path: 'forgot_password', element: <ForgotPasswordPage /> },
         ],
       },
     ],

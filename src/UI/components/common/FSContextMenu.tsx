@@ -5,11 +5,11 @@ import {
   MdDriveFileRenameOutline,
   MdOutlineDriveFileMove,
 } from 'react-icons/md';
-import CreateFolder from '../compound/forms/CreateFolder';
 import Modal from './Modal';
 import DeleteForm from '../compound/forms/DeleteForm';
 import MoveFS from '../compound/MoveFS';
-import { useSelectedFSNodeFile } from '../../context/selected-fs-node-context';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
+import RenameFolder from '../compound/forms/RenameFolder';
 
 type Props = {
   showDeleteOption?: boolean;
@@ -77,7 +77,7 @@ const FSContextMenu = ({ showDeleteOption = true }: Props) => {
         </>
       )}
       <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered={true}>
-        <CreateFolder onClose={onClose} />
+        <RenameFolder onClose={onClose} />
       </Modal>
       <Modal isOpen={isMoveOpen} onClose={onMoveClose} size="xl" isCentered>
         <MoveFS onClose={onMoveClose} />

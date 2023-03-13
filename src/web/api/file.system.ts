@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { FILE_SYSTEM_API_URL } from '../../core/constants';
-import { FileSystemNode } from '../../core/entities/file.system.node';
+import { FileSystemNode } from '../../core/entities/file.system.node.entity';
 import { requests } from '../apiClient';
 import { getUploadKey, uploadFile } from './file.upload';
 
@@ -30,10 +31,13 @@ export const addFolder = async ({
   return requests.post(FILE_SYSTEM_API_URL + URL, { name, parentFolderId });
 };
 
-export const addFile = async (data: AddFileRequest) => {
-  const response = await getUploadKey();
-  const res = await uploadFile(response.signedUrl, data.file);
-  console.log('aws response', res);
+export const addFile = async ({ file }: AddFileRequest) => {
+  const { signedUrl } = await getUploadKey();
+  // Check out the next two lines to see which one works.
+  // They are both the same lines. But the previous implementation seemed to have worked in the past
+  await axios.put(signedUrl, file, { headers: { 'Content-Type': file.type } });
+  // const res = await uploadFile(signedUrl, file);
+  // console.log('aws response', res);
   return;
 };
 

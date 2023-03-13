@@ -9,14 +9,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { useSelectedFSNodeFile } from '../../../context/selected-fs-node-context';
-import { useDeleteFileSystemNode } from '../../../hooks/useFileSystemService';
+import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
+import { useFileSystem } from '@cache/file.system';
 
 type Props = {
   onClose: () => void;
 };
 
 const DeleteForm = ({ onClose }: Props) => {
+  const { useDeleteFileSystemNode } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useDeleteFileSystemNode();
   const { selectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder' ? true : false;

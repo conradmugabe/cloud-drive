@@ -1,11 +1,22 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "baseUrl": ".",
+    "paths": {
+      "@entities/*": ["src/core/entities/*"],
+      "@dto/*": ["src/core/dto/*"],
+      "@core/*": ["src/core/*"],
+      "@useCases/*": ["src/useCases/*"],
+      "@context/*": ["src/context/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@config/*": ["src/config/*"],
+      "@cache/*": ["src/cache/*"],
+      "@services/*": ["src/services/*"],
+      "@asserts/*":["src/asserts/*"],
+      "@src/*": ["src/*"],
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,7 +31,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "build"]
 }

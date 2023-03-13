@@ -9,12 +9,14 @@ import {
   VStack,
   Button,
   ButtonGroup,
+  Image,
 } from '@chakra-ui/react';
 import { IoMdSync } from 'react-icons/io';
 import { TbCloudLock } from 'react-icons/tb';
 import { HiOutlineShare } from 'react-icons/hi';
 import PricingCard from '../components/compound/PricingCard';
 import Feature from './Landing.Components/Feature';
+import image from '../../assets/my_files_cloud.svg';
 
 const featuresList = [
   {
@@ -110,7 +112,9 @@ const Landing = () => {
                 </Link>
               </Box>
             </VStack>
-            <Box w="100%" h="100%" bgColor="blue.100"></Box>
+            <Box w="100%" h="100%" display="grid" placeContent="center">
+              <Image src={image} />
+            </Box>
           </SimpleGrid>
           <VStack bgColor="gray.50" py="28" px="10" gap="10">
             <Heading size="xl" fontWeight="bold">
