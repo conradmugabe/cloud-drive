@@ -21,7 +21,7 @@ const DeleteForm = ({ onClose }: Props) => {
   const toast = useToast();
   const { useDeleteFileSystemNode } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useDeleteFileSystemNode();
-  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder' ? true : false;
   const name = isFolder ? 'Folder' : 'File';
   const handleDelete = (event: React.FormEvent) => {
@@ -37,6 +37,7 @@ const DeleteForm = ({ onClose }: Props) => {
         duration: 5000,
         isClosable: true,
       });
+      setSelectedFSNode(null);
       onClose();
     }
   }, [isSuccess, onClose, toast]);
