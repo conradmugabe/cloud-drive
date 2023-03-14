@@ -6,13 +6,14 @@ import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 import EmptyFolder from './EmptyFolder';
 import { useFileSystem } from '@cache/file.system';
+import SkeletonFile from '../common/SkeletonFile';
 
 const FolderFiles = () => {
   const navigate = useNavigate();
   const { folderId } = useParams();
   const { setSelectedFSNode } = useSelectedFSNodeFile();
   const { useFolderContents } = useFileSystem();
-  const { data } = useFolderContents(folderId);
+  const { data, isLoading } = useFolderContents(folderId);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
@@ -39,6 +40,8 @@ const FolderFiles = () => {
     setSelectedFSNode(null);
   };
 
+  const showEmptyFolder = !isLoading && files.length === 0;
+
   return (
     <Box
       width="full"
@@ -47,8 +50,13 @@ const FolderFiles = () => {
       paddingBottom={20}
       onClick={onClick}
     >
-      <FolderTree files={files} heading="Files" onDoubleClick={onDoubleClick} />
-      {files.length === 0 && <EmptyFolder />}
+      <FolderTree
+        isLoading={isLoading}
+        files={files}
+        heading="Files"
+        onDoubleClick={onDoubleClick}
+      />
+      {showEmptyFolder && <EmptyFolder />}
     </Box>
   );
 };
