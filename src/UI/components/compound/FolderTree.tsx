@@ -5,14 +5,16 @@ import FolderTreeViewToggler from './FolderTreeViewToggler';
 import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import SelectFSOptions from './SelectFSOptions';
 import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
+import SkeletonFile from '../common/SkeletonFile';
 
 interface Props {
   heading: string;
   files: FileSystemNode[];
   onDoubleClick: (file: FileSystemNode) => void;
+  isLoading: boolean;
 }
 
-const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
+const FolderTree = ({ heading, files, onDoubleClick, isLoading }: Props) => {
   const [search, setSearch] = React.useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedFSNode } = useSelectedFSNodeFile();
@@ -68,6 +70,13 @@ const FolderTree = ({ heading, files, onDoubleClick }: Props) => {
         </FolderTreeViewToggler>
       </Flex>
       <SimpleGrid columns={isOpen ? 1 : 2} gap="5" width="100%" px="1" py="5">
+        {isLoading && (
+          <>
+            {[...Array(20).keys()].map((i) => (
+              <SkeletonFile key={i} />
+            ))}
+          </>
+        )}
         {renderFiles}
       </SimpleGrid>
     </>
