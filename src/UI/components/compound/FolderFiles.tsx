@@ -6,7 +6,6 @@ import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 import EmptyFolder from './EmptyFolder';
 import { useFileSystem } from '@cache/file.system';
-import SkeletonFile from '../common/SkeletonFile';
 
 const FolderFiles = () => {
   const navigate = useNavigate();

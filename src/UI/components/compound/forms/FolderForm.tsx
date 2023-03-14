@@ -5,6 +5,7 @@ import {
   Flex,
   Input,
   ModalFooter,
+  useToast,
 } from '@chakra-ui/react';
 import { TbFolderPlus } from 'react-icons/tb';
 
@@ -27,10 +28,19 @@ const FolderForm = ({
 }: Props) => {
   const FILE_NAME = 'fileName';
   const [fileName, setFileName] = React.useState<string>(defaultFileName);
+  const toast = useToast();
 
   React.useEffect(() => {
-    if (isSuccess) onClose();
-  });
+    if (isSuccess) {
+      onClose();
+      toast({
+        title: 'Folder created.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [isSuccess, onClose]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
