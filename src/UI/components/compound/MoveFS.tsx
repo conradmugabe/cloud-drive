@@ -11,6 +11,7 @@ import {
   SimpleGrid,
   Tooltip,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { TbFolderPlus } from 'react-icons/tb';
 import Modal from '../common/Modal';
@@ -26,22 +27,16 @@ type Props = {
 };
 
 const MoveFS = ({ onClose }: Props) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose: onCloseModal } = useDisclosure();
   const { useFolderContents, useMoveFolder } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useMoveFolder();
-  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const { targetFolder, setTargetFolder } = useTargetFolder();
   const { data } = useFolderContents(targetFolder?.id, {
     select(data) {
       return data.filter((file) => file.type === 'folder');
     },
-  });
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      onClose();
-      handleClose();
-    }
   });
 
   const onDoubleClick = (folder: FileSystemNode) => {
@@ -57,6 +52,20 @@ const MoveFS = ({ onClose }: Props) => {
     if (selectedFSNode)
       mutate({ file: selectedFSNode, parentFolderId: targetFolder?.id });
   };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: 'Moved Folder',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      setSelectedFSNode(null);
+      onClose();
+      handleClose();
+    }
+  }, [isSuccess, onClose, handleClose, toast, setSelectedFSNode]);
 
   const renderFiles = data?.map((file: FileSystemNode) => {
     const isTargetFolder = file.id === selectedFSNode?.id;
