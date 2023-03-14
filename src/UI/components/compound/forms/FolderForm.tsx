@@ -5,6 +5,7 @@ import {
   Flex,
   Input,
   ModalFooter,
+  useToast,
 } from '@chakra-ui/react';
 import { TbFolderPlus } from 'react-icons/tb';
 
@@ -12,6 +13,7 @@ type Props = {
   mutate: (name: string) => void;
   onClose: () => void;
   label: string;
+  successMessage: string;
   isLoading: boolean;
   isSuccess: boolean;
   defaultFileName?: string;
@@ -24,13 +26,23 @@ const FolderForm = ({
   isSuccess,
   onClose,
   defaultFileName = '',
+  successMessage,
 }: Props) => {
   const FILE_NAME = 'fileName';
   const [fileName, setFileName] = React.useState<string>(defaultFileName);
+  const toast = useToast();
 
   React.useEffect(() => {
-    if (isSuccess) onClose();
-  });
+    if (isSuccess) {
+      toast({
+        title: successMessage,
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      onClose();
+    }
+  }, [isSuccess, onClose, toast, successMessage]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();

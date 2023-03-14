@@ -7,6 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useSelectedFSNodeFile } from '@context/selected.fs.node.context';
@@ -17,9 +18,10 @@ type Props = {
 };
 
 const DeleteForm = ({ onClose }: Props) => {
+  const toast = useToast();
   const { useDeleteFileSystemNode } = useFileSystem();
   const { mutate, isLoading, isSuccess } = useDeleteFileSystemNode();
-  const { selectedFSNode } = useSelectedFSNodeFile();
+  const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder' ? true : false;
   const name = isFolder ? 'Folder' : 'File';
   const handleDelete = (event: React.FormEvent) => {
@@ -29,9 +31,16 @@ const DeleteForm = ({ onClose }: Props) => {
 
   React.useEffect(() => {
     if (isSuccess) {
+      toast({
+        title: 'Deleted Folder',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      setSelectedFSNode(null);
       onClose();
     }
-  }, [isSuccess, onClose]);
+  }, [isSuccess, onClose, toast]);
 
   return (
     <form onSubmit={handleDelete}>
