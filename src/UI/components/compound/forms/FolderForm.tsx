@@ -34,13 +34,13 @@ const FolderForm = ({
 
   React.useEffect(() => {
     if (isSuccess) {
-      onClose();
       toast({
         title: successMessage,
         status: 'success',
         duration: 5000,
         isClosable: true,
       });
+      onClose();
     }
   }, [isSuccess, onClose, toast, successMessage]);
 
