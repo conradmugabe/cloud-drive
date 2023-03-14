@@ -28,6 +28,7 @@ const CreateFolder = ({ onClose }: Props) => {
         isSuccess={isSuccess}
         label={label}
         onClose={onClose}
+        successMessage="Folder Created"
       />
     </>
   );

@@ -35,6 +35,7 @@ const RenameFolder = ({ onClose }: Props) => {
         label={label}
         onClose={onClose}
         defaultFileName={selectedFSNode?.name}
+        successMessage="Updated Folder Name"
       />
     </>
   );

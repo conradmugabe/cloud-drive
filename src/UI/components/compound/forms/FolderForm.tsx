@@ -13,6 +13,7 @@ type Props = {
   mutate: (name: string) => void;
   onClose: () => void;
   label: string;
+  successMessage: string;
   isLoading: boolean;
   isSuccess: boolean;
   defaultFileName?: string;
@@ -25,6 +26,7 @@ const FolderForm = ({
   isSuccess,
   onClose,
   defaultFileName = '',
+  successMessage,
 }: Props) => {
   const FILE_NAME = 'fileName';
   const [fileName, setFileName] = React.useState<string>(defaultFileName);
@@ -34,13 +36,13 @@ const FolderForm = ({
     if (isSuccess) {
       onClose();
       toast({
-        title: 'Folder created.',
+        title: successMessage,
         status: 'success',
         duration: 5000,
         isClosable: true,
       });
     }
-  }, [isSuccess, onClose]);
+  }, [isSuccess, onClose, toast, successMessage]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
