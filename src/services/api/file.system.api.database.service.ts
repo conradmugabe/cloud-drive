@@ -1,6 +1,7 @@
 import { requests } from '@config/axiosClient';
 import { FileSystemDatabaseService } from '@core/services/file.system.database.service';
 import {
+  AddFile,
   CreateFolder,
   DeleteFileSystemNode,
   GetFolderContents,
@@ -47,4 +48,21 @@ export class ApiFileSystemDatabaseService implements FileSystemDatabaseService {
     name,
   }: FileSystemDatabaseService.RenameFileSystemNode): Promise<FileSystemNode> =>
     requests.patch(this.FILE_SYSTEM_API_URL + id, { name });
+
+  addFile = async ({
+    name,
+    fileUrl,
+    size,
+    type,
+    parentFolderId,
+  }: AddFile): Promise<FileSystemNode> => {
+    const URL = 'files';
+    return requests.post(this.FILE_SYSTEM_API_URL + URL, {
+      name,
+      parentFolderId,
+      fileUrl,
+      size,
+      type,
+    });
+  };
 }
