@@ -1,4 +1,5 @@
 import {
+  AddFile,
   CreateFolder,
   DeleteFileSystemNode,
   GetFolderContents,
@@ -21,6 +22,8 @@ export abstract class FileSystemDatabaseService {
   abstract renameFileSystemNode(
     props: FileSystemDatabaseService.RenameFileSystemNode
   ): Promise<FileSystemNode>;
+
+  abstract addFile(props: AddFile): Promise<FileSystemNode>;
 }
 
 export namespace FileSystemDatabaseService {

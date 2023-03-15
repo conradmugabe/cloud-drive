@@ -1,4 +1,8 @@
-import { CreateFolder, GetFolderContents } from '@dto/file.system.node.dto';
+import {
+  AddFile,
+  CreateFolder,
+  GetFolderContents,
+} from '@dto/file.system.node.dto';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 import {
   addDoc,
@@ -53,6 +57,26 @@ export class FirebaseFileSystemDatabaseService implements FileSystemDbService {
       type: 'folder',
       updatedAt: serverTimestamp(),
       createdAt: serverTimestamp(),
+    });
+    return this.getFolderById(docRef.id);
+  };
+
+  addFile = async (
+    { name, parentFolderId, fileUrl, type, size }: AddFile,
+    pathIds: string
+  ): Promise<FileSystemNode> => {
+    const docRef = await addDoc(databases.fileSystem, {
+      name,
+      ownedBy: this.getUserId(),
+      createdBy: this.getUserId(),
+      parentFolderId: parentFolderId || this.getUserId(),
+      path: '',
+      pathIds,
+      size,
+      type,
+      updatedAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
+      fileUrl,
     });
     return this.getFolderById(docRef.id);
   };
