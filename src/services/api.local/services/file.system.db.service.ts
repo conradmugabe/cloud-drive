@@ -1,4 +1,8 @@
-import { CreateFolder, GetFolderContents } from '@dto/file.system.node.dto';
+import {
+  AddFile,
+  CreateFolder,
+  GetFolderContents,
+} from '@dto/file.system.node.dto';
 import { FileSystemNode } from '@entities/file.system.node.entity';
 
 export abstract class FileSystemDbService {
@@ -24,6 +28,8 @@ export abstract class FileSystemDbService {
   abstract renameFileSystemNode(
     props: FileSystemDbService.RenameFileSystemNode
   ): Promise<FileSystemNode>;
+
+  abstract addFile(props: AddFile, pathIds: string): Promise<FileSystemNode>;
 }
 
 export namespace FileSystemDbService {

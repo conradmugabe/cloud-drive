@@ -8,6 +8,15 @@ const CreateFolder = z.object({
 });
 type CreateFolder = z.infer<typeof CreateFolder>;
 
+const AddFile = CreateFolder.merge(
+  z.object({
+    fileUrl: z.string(),
+    type: z.string(),
+    size: z.number()
+  })
+);
+type AddFile = z.infer<typeof AddFile>;
+
 const RenameFileSystemNode = z.object({
   name: z.string(),
   id: z.string(),
@@ -32,4 +41,5 @@ export {
   GetFolderContents,
   DeleteFileSystemNode,
   MoveFileSystemNode,
+  AddFile,
 };

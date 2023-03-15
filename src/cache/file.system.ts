@@ -12,8 +12,32 @@ export const useFileSystem = () => {
   const FOLDERS = 'folders';
   const CONTENTS = 'contents';
   const queryClient = useQueryClient();
-  const { fileSystemUseCases } = useUseCases();
+  const { fileSystemUseCases, filesUseCases } = useUseCases();
   const { user } = useUser();
+
+  const handleUploadFile = async (file: File) => {
+    const fileExtension = file.type;
+    const { signedUrl } = await filesUseCases.getSignedUrl({ fileExtension });
+    await filesUseCases.uploadFile({ file, signedUrl });
+    return { signedUrl };
+  };
+
+  const addFile = async ({
+    file,
+    parentFolderId,
+  }: {
+    file: File;
+    parentFolderId?: string;
+  }) => {
+    const { signedUrl } = await handleUploadFile(file);
+    return fileSystemUseCases.addFile({
+      fileUrl: signedUrl,
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      parentFolderId,
+    });
+  };
 
   const useFolderContents = (
     folderId?: string,
@@ -102,11 +126,26 @@ export const useFileSystem = () => {
     });
   };
 
+  const useAddFile = () => {
+    const { mutate, isLoading, isSuccess } = useMutation({
+      mutationFn: addFile,
+      onSuccess: (data, { parentFolderId }) => {
+        const id = parentFolderId ? parentFolderId : user?.id || '';
+        const queryKey = [FOLDERS, CONTENTS, id];
+        const files = queryClient.getQueryData<FileSystemNode[]>(queryKey);
+        const updatedFiles = files ? [...files, data] : [data];
+        queryClient.setQueryData(queryKey, updatedFiles);
+      },
+    });
+    return { mutate, isLoading, isSuccess };
+  };
+
   return {
     useFolderContents,
     useCreateFolder,
     useDeleteFileSystemNode,
     useMoveFolder,
     useRenameFileSystem,
+    useAddFile,
   };
 };

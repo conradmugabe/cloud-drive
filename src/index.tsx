@@ -12,10 +12,16 @@ import App from '@src/App';
 
 import '@src/index.css';
 import { ApiLocal } from '@services/api.local/api.local';
+import { StorageFirebaseService } from '@services/firebase/storage.firebase.service';
+import { FilesUseCases } from '@useCases/files.use.cases';
+
+const storageService = new StorageFirebaseService();
 
 const databaseService = new FirebaseFileSystemDatabaseService();
 const authDatabaseService = new FirebaseAuthDatabaseService();
-const fileSystemDatabaseService = new ApiLocal(databaseService);
+const fileSystemDatabaseService = new ApiLocal(databaseService, storageService);
+
+const filesUseCases = new FilesUseCases(fileSystemDatabaseService);
 const fileSystemUseCases = new FileSystemUseCases(fileSystemDatabaseService);
 const authUseCases = new AuthUseCases(authDatabaseService);
 
@@ -27,7 +33,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <UseCasesProvider useCases={{ authUseCases, fileSystemUseCases }}>
+    <UseCasesProvider useCases={{ authUseCases, fileSystemUseCases, filesUseCases }}>
       <AppProvider>
         <QueryClientProvider client={queryClient}>
           <App />

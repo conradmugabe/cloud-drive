@@ -9,6 +9,7 @@
         "STORAGEBUCKET",
         "svgr",
         "szhsin",
-        "tanstack"
+        "tanstack",
+        "uuidv"
     ]
 }

@@ -1,5 +1,6 @@
 import { FileSystemDatabaseService } from '@core/services/file.system.database.service';
 import {
+  AddFile,
   CreateFolder,
   GetFolderContents,
   MoveFileSystemNode,
@@ -31,6 +32,9 @@ export class FileSystemUseCases {
     props: FileSystemUseCases.RenameFileSystemNode
   ): Promise<FileSystemNode> =>
     this.databaseService.renameFileSystemNode(props);
+
+  addFile = async (props: AddFile): Promise<FileSystemNode> =>
+    this.databaseService.addFile(props);
 }
 
 namespace FileSystemUseCases {
