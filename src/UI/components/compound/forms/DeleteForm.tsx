@@ -34,7 +34,7 @@ const DeleteForm = ({ onClose }: Props) => {
       toast({
         title: 'Deleted Folder',
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
       setSelectedFSNode(null);

@@ -37,7 +37,7 @@ const FolderForm = ({
       toast({
         title: successMessage,
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
       onClose();
