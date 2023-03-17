@@ -12,7 +12,7 @@ const CreateFolder = ({ onClose }: Props) => {
   const label = 'Create Folder';
   const { folderId } = useParams();
   const { useCreateFolder } = useFileSystem();
-  const { mutate, isLoading, isSuccess } = useCreateFolder();
+  const { mutate, isLoading, isSuccess, isError, error } = useCreateFolder();
 
   const handleCreateFolder = (fileName: string) => {
     mutate({ name: fileName, parentFolderId: folderId });
@@ -29,6 +29,8 @@ const CreateFolder = ({ onClose }: Props) => {
         label={label}
         onClose={onClose}
         successMessage="Folder Created"
+        isError={isError}
+        error={error}
       />
     </>
   );

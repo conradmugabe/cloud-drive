@@ -57,7 +57,7 @@ export const useFileSystem = () => {
   };
 
   const useCreateFolder = () => {
-    const { mutate, isLoading, isSuccess } = useMutation({
+    return useMutation({
       mutationFn: fileSystemUseCases.createFolder,
       onSuccess: (data, { parentFolderId }) => {
         const id = parentFolderId ? parentFolderId : user?.id || '';
@@ -67,7 +67,6 @@ export const useFileSystem = () => {
         queryClient.setQueryData(queryKey, updatedFiles);
       },
     });
-    return { mutate, isLoading, isSuccess };
   };
 
   const useDeleteFileSystemNode = () => {
@@ -127,7 +126,7 @@ export const useFileSystem = () => {
   };
 
   const useAddFile = () => {
-    const { mutate, isLoading, isSuccess } = useMutation({
+    return useMutation({
       mutationFn: addFile,
       onSuccess: (data, { parentFolderId }) => {
         const id = parentFolderId ? parentFolderId : user?.id || '';
@@ -137,7 +136,6 @@ export const useFileSystem = () => {
         queryClient.setQueryData(queryKey, updatedFiles);
       },
     });
-    return { mutate, isLoading, isSuccess };
   };
 
   return {
