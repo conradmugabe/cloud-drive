@@ -32,9 +32,9 @@ const DeleteForm = ({ onClose }: Props) => {
   React.useEffect(() => {
     if (isSuccess) {
       toast({
-        title: 'Deleted Folder',
+        title: `Deleted ${name}`,
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
       setSelectedFSNode(null);

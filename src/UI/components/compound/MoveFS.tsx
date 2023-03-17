@@ -58,7 +58,7 @@ const MoveFS = ({ onClose }: Props) => {
       toast({
         title: 'Moved Folder',
         status: 'success',
-        duration: 5000,
+        duration: 3000,
         isClosable: true,
       });
       setSelectedFSNode(null);

@@ -10,10 +10,11 @@ interface Props {
 
 const RenameFolder = ({ onClose }: Props) => {
   const { useRenameFileSystem } = useFileSystem();
-  const { mutate, isLoading, isSuccess } = useRenameFileSystem();
+  const { mutate, isLoading, isSuccess, isError, error } =
+    useRenameFileSystem();
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder';
-  const fileType = `${isFolder ? 'folder' : 'file'}`;
+  const fileType = isFolder ? 'folder' : 'file';
   const label = `Rename ${fileType}`;
 
   React.useEffect(() => {
@@ -35,7 +36,9 @@ const RenameFolder = ({ onClose }: Props) => {
         label={label}
         onClose={onClose}
         defaultFileName={selectedFSNode?.name}
-        successMessage="Updated Folder Name"
+        successMessage={`Updated ${fileType} Name`}
+        isError={isError}
+        error={error}
       />
     </>
   );
