@@ -55,7 +55,7 @@ const FolderForm = ({
         isClosable: true,
       });
     }
-  }, [isSuccess, onClose, toast, successMessage]);
+  }, [isSuccess, onClose, toast, successMessage, isError, error]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
