@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/skeleton";
 
 export default function Loading() {
   return (
-    <div className="h-screen flex flex-col">
+    <main className="h-screen flex flex-col">
       <NavBarSkeleton />
       <div className="flex h-full">
         <SideBarSkeleton count={5} />
@@ -16,6 +16,6 @@ export default function Loading() {
           <FileNodeSkeleton count={10} />
         </div>
       </div>
-    </div>
+    </main>
   );
 }

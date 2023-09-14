@@ -1,7 +1,9 @@
+import { NavBar } from "@/components/nav-bar";
+
 export default function Page() {
   return (
-    <>
-      <header></header>
-    </>
+    <main className="h-screen flex flex-col">
+      <NavBar />
+    </main>
   );
 }
