@@ -9,7 +9,8 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "Cloud Drive",
-  description: "Cloud Drive is an online file storage service for your files.",
+  description:
+    "Cloud Drive is an online file storage service for your files. Get organized with Cloud Drive",
 };
 
 export default function RootLayout({
