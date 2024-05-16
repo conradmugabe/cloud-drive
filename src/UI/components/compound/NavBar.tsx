@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, HStack } from '@chakra-ui/react';
-import { Link, useNavigate, redirect } from 'react-router-dom';
+import { Link, useNavigate, useLocation, redirect } from 'react-router-dom';
 import { QueryCache } from '@tanstack/react-query';
 import Logo from '../common/Logo';
 import { useUser } from '@context/user.context';
@@ -11,6 +11,7 @@ const NavBar = () => {
   const { mutate, isLoading, isSuccess } = useLogout();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const logout = () => {
     mutate();
@@ -41,11 +42,12 @@ const NavBar = () => {
       <Link to="/">
         <Logo />
       </Link>
-      {user ? (
+      {user && (
         <Button colorScheme="linkedin" onClick={logout} isLoading={isLoading}>
           Logout
         </Button>
-      ) : (
+      )}
+      {(pathname === '/' && !user) && (
         <Link to="/auth/login">
           <Button alignSelf="flex-start" colorScheme="linkedin">
             Try Cloud Drive

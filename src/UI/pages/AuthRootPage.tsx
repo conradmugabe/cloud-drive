@@ -1,9 +1,8 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { Box, Center, SimpleGrid, Image } from '@chakra-ui/react';
 import image from '../../assets/secure_login.svg';
-import { Outlet } from 'react-router-dom';
 
-const AuthRootPage = () => {
+const AuthRootPage = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Center>
@@ -18,7 +17,7 @@ const AuthRootPage = () => {
           <Box w="100%" h="100%" display="grid" placeContent="center">
             <Image src={image} />
           </Box>
-          <Outlet />
+          {children}
         </SimpleGrid>
       </Center>
     </>
