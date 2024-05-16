@@ -1,12 +1,10 @@
 import React from 'react';
-import { Button, HStack, Text } from '@chakra-ui/react';
+import { Button, HStack } from '@chakra-ui/react';
 import { Link, useNavigate, redirect } from 'react-router-dom';
 import { QueryCache } from '@tanstack/react-query';
 import Logo from '../common/Logo';
 import { useUser } from '@context/user.context';
 import { useAuth } from '@cache/users';
-
-const menuItems = ['Pricing', 'Docs', 'Blog', 'Support'];
 
 const NavBar = () => {
   const { useLogout } = useAuth();
@@ -48,16 +46,11 @@ const NavBar = () => {
           Logout
         </Button>
       ) : (
-        <HStack spacing={8}>
-          {menuItems.map((item) => (
-            <Text
-              key={item}
-              _hover={{ borderBottom: '3px solid green', cursor: 'pointer' }}
-            >
-              {item}
-            </Text>
-          ))}
-        </HStack>
+        <Link to="/auth/login">
+          <Button alignSelf="flex-start" colorScheme="linkedin">
+            Try Cloud Drive
+          </Button>
+        </Link>
       )}
     </HStack>
   );
