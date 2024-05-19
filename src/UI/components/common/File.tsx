@@ -84,7 +84,7 @@ const File = ({ file, onDoubleClick }: Props) => {
             {file.name}
           </Text>
           {!isFolder && (
-            <Text fontSize="small" color="blackAlpha.600">
+            <Text fontSize="small" color="blackAlpha.600" textTransform="uppercase">
               {fileType} / {formatFileSize(file.size)}
             </Text>
           )}
