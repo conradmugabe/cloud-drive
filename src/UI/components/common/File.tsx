@@ -7,6 +7,20 @@ import { useContextMenu } from '../../hooks/useContextMenu';
 import { FileSystemNode } from '../../../core/entities/file.system.node.entity';
 import { formatDate } from '../../../utils/date';
 
+function formatFileSize(size: number): string {
+  const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  let index = 0;
+
+  while (size >= 1024 && index < units.length - 1) {
+    size /= 1024;
+    index++;
+  }
+
+  const roundedSize = size.toFixed(2);
+
+  return `${roundedSize} ${units[index]}`;
+}
+
 interface Props {
   file: FileSystemNode;
   onDoubleClick: (file: FileSystemNode) => void;
@@ -71,7 +85,7 @@ const File = ({ file, onDoubleClick }: Props) => {
           </Text>
           {!isFolder && (
             <Text fontSize="small" color="blackAlpha.600">
-              {fileType} / {file.size}
+              {fileType} / {formatFileSize(file.size)}
             </Text>
           )}
         </VStack>
