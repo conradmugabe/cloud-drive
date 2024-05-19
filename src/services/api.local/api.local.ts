@@ -100,7 +100,11 @@ export class ApiLocal implements FileSystemDatabaseService, FilesService {
   ): Promise<FilesService.GetSignedUrlResponse> => {
     const userId = this.databaseService.getUserId();
     const fileId = uuidv4();
-    const signedUrl = `${userId}/${fileId}/${props.fileExtension}`;
+
+    const contentTypeList = props.fileExtension.split('/');
+    const fileType = contentTypeList[contentTypeList.length - 1];
+
+    const signedUrl = `${userId}/${fileId}.${fileType}`;
     return { signedUrl };
   };
 
