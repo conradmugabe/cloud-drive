@@ -41,6 +41,9 @@ const File = ({ file, onDoubleClick }: Props) => {
   const isOpen = isSelected && showContextMenu ? true : false;
   const date = formatDate(file.updatedAt);
 
+  const contentTypeList = file.type.split('/');
+  const fileType = contentTypeList[contentTypeList.length - 1];
+
   return (
     <Flex
       py="2.5"
@@ -68,7 +71,7 @@ const File = ({ file, onDoubleClick }: Props) => {
           </Text>
           {!isFolder && (
             <Text fontSize="small" color="blackAlpha.600">
-              {file.type} / {file.size}
+              {fileType} / {file.size}
             </Text>
           )}
         </VStack>
