@@ -1,6 +1,5 @@
 import React from 'react';
 import { Divider, Flex } from '@chakra-ui/react';
-import { MdOutlinePeopleAlt } from 'react-icons/md';
 import { FiHardDrive } from 'react-icons/fi';
 import MenuItem from '../../interfaces/Menu';
 import SideMenuItem from '../common/SideMenuItem';
@@ -19,12 +18,6 @@ const SideNav = () => {
 
   const sideMenuItems: MenuItem[] = [
     { route: '/', name: 'My Drive', value: '', icon: <FiHardDrive /> },
-    {
-      route: '/',
-      name: 'Shared with me',
-      value: 'shared-with-me',
-      icon: <MdOutlinePeopleAlt />,
-    },
   ];
 
   return (
