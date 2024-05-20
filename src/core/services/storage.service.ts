@@ -1,7 +1,11 @@
 export abstract class StorageService {
   abstract uploadFile(props: StorageService.UploadFile): Promise<void>;
 
-  abstract getStorageUsed(props: StorageService.GetStorageUsed): Promise<number>;
+  abstract getStorageUsed(
+    props: StorageService.GetStorageUsed
+  ): Promise<number>;
+
+  abstract deleteFile(props: StorageService.DeleteFile): Promise<void>;
 }
 
 export namespace StorageService {
@@ -13,5 +17,9 @@ export namespace StorageService {
 
   export type GetStorageUsed = {
     userId: string;
-  }
+  };
+
+  export type DeleteFile = {
+    filePath: string;
+  };
 }

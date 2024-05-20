@@ -1,4 +1,5 @@
 import {
+  deleteObject,
   getMetadata,
   listAll,
   ref,
@@ -50,5 +51,11 @@ export class StorageFirebaseService implements StorageService {
       console.error('Error getting user storage size:', error);
       return 0; // or throw an error, depending on your error handling strategy
     }
+  };
+
+  deleteFile = async (props: StorageService.DeleteFile): Promise<void> => {
+    const fileRef = ref(storage, props.filePath);
+
+    await deleteObject(fileRef);
   };
 }

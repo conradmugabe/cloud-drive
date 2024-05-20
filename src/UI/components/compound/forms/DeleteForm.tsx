@@ -19,7 +19,8 @@ type Props = {
 
 const DeleteForm = ({ onClose }: Props) => {
   const toast = useToast();
-  const { useDeleteFileSystemNode } = useFileSystem();
+  const { useDeleteFileSystemNode, useGetStorage } = useFileSystem();
+  const { refetch } = useGetStorage();
   const { mutate, isLoading, isSuccess } = useDeleteFileSystemNode();
   const { selectedFSNode, setSelectedFSNode } = useSelectedFSNodeFile();
   const isFolder = selectedFSNode?.type === 'folder' ? true : false;
@@ -38,9 +39,10 @@ const DeleteForm = ({ onClose }: Props) => {
         isClosable: true,
       });
       setSelectedFSNode(null);
+      refetch();
       onClose();
     }
-  }, [isSuccess, onClose, toast]);
+  }, [isSuccess, onClose, toast, name, setSelectedFSNode, refetch]);
 
   return (
     <form onSubmit={handleDelete}>

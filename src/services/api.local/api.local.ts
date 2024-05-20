@@ -38,7 +38,10 @@ export class ApiLocal implements FileSystemDatabaseService, FilesService {
   deleteFileSystemNode = async ({
     id,
   }: DeleteFileSystemNode): Promise<void> => {
-    await this.databaseService.getFolderById(id);
+    const fsNode = await this.databaseService.getFolderById(id);
+    if (fsNode.type !== 'folder') {
+      await this.storageService.deleteFile({ filePath: fsNode.fileUrl || '' });
+    }
     return this.databaseService.deleteFileSystemNode(id);
   };
 
