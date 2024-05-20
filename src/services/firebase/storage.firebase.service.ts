@@ -11,8 +11,9 @@ export class StorageFirebaseService implements StorageService {
     uploadTask.on(
       'state_changed',
       (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const { bytesTransferred, totalBytes } = snapshot;
+        const progress = Math.round((bytesTransferred / totalBytes) * 100);
+
         props.setProgress(progress);
       },
       (error) => {

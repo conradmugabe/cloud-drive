@@ -1,5 +1,10 @@
 import React from 'react';
-import { MenuItem, useDisclosure, useToast } from '@chakra-ui/react';
+import {
+  MenuItem,
+  ToastId,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 import { TbFilePlus, TbFolderPlus } from 'react-icons/tb';
 import CreateFolder from '../compound/forms/CreateFolder';
 import Modal from './Modal';
@@ -10,7 +15,7 @@ const GeneralContextMenu = () => {
   const [, setFile] = React.useState<File>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const input = React.useRef<HTMLInputElement>(null);
-  const { useAddFile } = useFileSystem();
+  const { useAddFile, progress } = useFileSystem();
   const { mutate, isSuccess } = useAddFile();
   const { folderId } = useParams();
   const toast = useToast();
@@ -28,17 +33,36 @@ const GeneralContextMenu = () => {
     }
   };
 
+  const toastIdRef = React.useRef<ToastId | null>(null);
+
   React.useEffect(() => {
-    if (isSuccess) {
-      toast({
-        title: 'Added File',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
-      onClose();
+    if (progress > 0 && progress < 100) {
+      if (!toastIdRef.current) {
+        toastIdRef.current = toast({
+          title: 'Uploading file...',
+          description: `${progress}% Uploaded`,
+          status: 'info',
+          duration: null,
+          isClosable: true,
+        });
+      } else {
+        toast.update(toastIdRef.current, {
+          title: 'Uploading file...',
+          description: `${progress}% Uploaded`,
+        });
+      }
+    } else if (progress === 0 && isSuccess) {
+      if (toastIdRef.current) {
+        toast.update(toastIdRef.current, {
+          title: 'Added File',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+        toastIdRef.current = null;
+      }
     }
-  }, [isSuccess, onClose, toast]);
+  }, [progress, toast, isSuccess]);
 
   return (
     <>
