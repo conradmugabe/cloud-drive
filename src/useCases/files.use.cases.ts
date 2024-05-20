@@ -15,5 +15,9 @@ export class FilesUseCases {
 namespace FilesUseCases {
   export type GetSignedUrlRequest = { fileExtension: string };
   export type GetSignedUrlResponse = { signedUrl: string };
-  export type UploadFileRequest = { file: File; signedUrl: string };
+  export type UploadFileRequest = {
+    file: File;
+    signedUrl: string;
+    setProgress: (progress: number) => void;
+  };
 }

@@ -3,5 +3,9 @@ export abstract class StorageService {
 }
 
 export namespace StorageService {
-  export type UploadFile = { file: File; signedUrl: string };
+  export type UploadFile = {
+    file: File;
+    signedUrl: string;
+    setProgress: (progress: number) => void;
+  };
 }

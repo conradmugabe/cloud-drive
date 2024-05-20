@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   useMutation,
   useQuery,
@@ -14,11 +15,12 @@ export const useFileSystem = () => {
   const queryClient = useQueryClient();
   const { fileSystemUseCases, filesUseCases } = useUseCases();
   const { user } = useUser();
+  const [progress, setProgress] = useState(0);
 
   const handleUploadFile = async (file: File) => {
     const fileExtension = file.type;
     const { signedUrl } = await filesUseCases.getSignedUrl({ fileExtension });
-    await filesUseCases.uploadFile({ file, signedUrl });
+    await filesUseCases.uploadFile({ file, signedUrl, setProgress });
     return { signedUrl };
   };
 
@@ -145,5 +147,6 @@ export const useFileSystem = () => {
     useMoveFolder,
     useRenameFileSystem,
     useAddFile,
+    progress,
   };
 };
