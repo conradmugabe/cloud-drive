@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  MenuItem,
-  ToastId,
-  useDisclosure,
-  useToast,
-} from '@chakra-ui/react';
+import { MenuItem, ToastId, useDisclosure, useToast } from '@chakra-ui/react';
 import { TbFilePlus, TbFolderPlus } from 'react-icons/tb';
 import CreateFolder from '../compound/forms/CreateFolder';
 import Modal from './Modal';
@@ -15,10 +10,11 @@ const GeneralContextMenu = () => {
   const [, setFile] = React.useState<File>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const input = React.useRef<HTMLInputElement>(null);
-  const { useAddFile, progress } = useFileSystem();
+  const { useAddFile, useGetStorage, progress } = useFileSystem();
   const { mutate, isSuccess } = useAddFile();
   const { folderId } = useParams();
   const toast = useToast();
+  const { refetch } = useGetStorage();
 
   const onChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -53,6 +49,7 @@ const GeneralContextMenu = () => {
       }
     } else if (progress === 0 && isSuccess) {
       if (toastIdRef.current) {
+        refetch();
         toast.update(toastIdRef.current, {
           title: 'Added File',
           status: 'success',
@@ -62,7 +59,7 @@ const GeneralContextMenu = () => {
         toastIdRef.current = null;
       }
     }
-  }, [progress, toast, isSuccess]);
+  }, [progress, toast, isSuccess, refetch]);
 
   return (
     <>
