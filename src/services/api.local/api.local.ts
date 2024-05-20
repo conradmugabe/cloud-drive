@@ -111,4 +111,8 @@ export class ApiLocal implements FileSystemDatabaseService, FilesService {
   uploadFile = (props: FilesService.UploadFileRequest): Promise<void> => {
     return this.storageService.uploadFile(props);
   };
+
+  getStorageUsed(props: FilesService.GetStorageUsed): Promise<number> {
+    return this.storageService.getStorageUsed(props);
+  }
 }

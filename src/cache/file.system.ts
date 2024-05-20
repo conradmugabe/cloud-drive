@@ -41,6 +41,13 @@ export const useFileSystem = () => {
     });
   };
 
+  const useGetStorage = () => {
+    return useQuery({
+      queryKey: ['storage', 'capacity', user?.id],
+      queryFn: () => filesUseCases.getStorageUsed({ userId: user?.id || '' }),
+    });
+  };
+
   const useFolderContents = (
     folderId?: string,
     props?: UseQueryOptions<
@@ -147,6 +154,7 @@ export const useFileSystem = () => {
     useMoveFolder,
     useRenameFileSystem,
     useAddFile,
+    useGetStorage,
     progress,
   };
 };

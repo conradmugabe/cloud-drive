@@ -10,6 +10,10 @@ export class FilesUseCases {
   uploadFile = (props: FilesUseCases.UploadFileRequest): Promise<void> => {
     return this.filesService.uploadFile(props);
   };
+
+  getStorageUsed = (props: FilesUseCases.GetStorageUsed): Promise<number> => {
+    return this.filesService.getStorageUsed(props)
+  }
 }
 
 namespace FilesUseCases {
@@ -20,4 +24,7 @@ namespace FilesUseCases {
     signedUrl: string;
     setProgress: (progress: number) => void;
   };
+  export type GetStorageUsed = {
+    userId: string;
+  }
 }

@@ -1,4 +1,9 @@
-import { ref, uploadBytesResumable } from 'firebase/storage';
+import {
+  getMetadata,
+  listAll,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { StorageService } from '@core/services/storage.service';
 import { storage } from '../../services/firebase/init';
 
@@ -23,5 +28,27 @@ export class StorageFirebaseService implements StorageService {
         props.setProgress(0);
       }
     );
+  };
+
+  getStorageUsed = async (
+    props: StorageService.GetStorageUsed
+  ): Promise<number> => {
+    const userRef = ref(storage, props.userId);
+
+    try {
+      const userFiles = await listAll(userRef);
+      const fileSizePromises = userFiles.items.map(async (itemRef) => {
+        const metadata = await getMetadata(itemRef);
+        return metadata.size;
+      });
+
+      const fileSizes = await Promise.all(fileSizePromises);
+      const totalSize = fileSizes.reduce((acc, size) => acc + size, 0);
+
+      return totalSize;
+    } catch (error) {
+      console.error('Error getting user storage size:', error);
+      return 0; // or throw an error, depending on your error handling strategy
+    }
   };
 }

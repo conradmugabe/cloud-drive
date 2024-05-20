@@ -1,5 +1,7 @@
 export abstract class StorageService {
   abstract uploadFile(props: StorageService.UploadFile): Promise<void>;
+
+  abstract getStorageUsed(props: StorageService.GetStorageUsed): Promise<number>;
 }
 
 export namespace StorageService {
@@ -8,4 +10,8 @@ export namespace StorageService {
     signedUrl: string;
     setProgress: (progress: number) => void;
   };
+
+  export type GetStorageUsed = {
+    userId: string;
+  }
 }
